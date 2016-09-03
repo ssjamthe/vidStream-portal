@@ -1,0 +1,269 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.action.excludePattern" value="/getApplicationNameServlet,/getAppCategorizationServlet,/getAppCategoriesServlet,/getVideCategoryServlet,/getCategorizationServlet,/getCategoryIdServlet,/getCategorizationFromCategoryServlet,/AddMultipleVideoActionServlet,/getAppTopLevelcategoryServlet,/getChildLevelCategoriesServlet,/getuserfeedbackbyAppwise"/>
+    <constant name="struts.mapper.action.prefix.enabled" value="true" />
+    <!-- Configuration for the default package. -->
+    <constant name="struts.custom.i18n.resources" value="global" />
+    <package name="default" extends="struts-default">
+        <action name="login" class="com.appify.vidstream.portal.LoginAction" >
+            <result name="success">/HomePage.jsp</result>
+            <result name="error">/LoginPage.jsp</result>
+            <result name="input">/LoginPage.jsp</result>
+        </action>
+        <action name="add_categorization" class="com.appify.vidstream.portal.AddCategorization">  
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1000020</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">PreListCategorization.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action> 
+        <action name="add_application_name" class="com.appify.vidstream.portal.AddApplicationNameAction">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1000020</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">prehomepage.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="deleteapplication" class="com.appify.vidstream.portal.DeleteApplicationAction">  
+            <result name="success">prehomepage.jsp</result>  
+             
+        </action>
+        
+        <action name="update_application" class="com.appify.vidstream.portal.UpdateApplicationAction">  
+            <result name="success">prehomepage.jsp</result>   
+        </action>
+        
+        
+        <action name="add_categories" class="com.appify.vidstream.portal.AddCategoriesAction">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1000020</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">PreListCategories.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action> 
+        
+        <action name="add_video_link" class="com.appify.vidstream.portal.AddVideoLinkAction">
+            
+            <result name="success">PreListVideoAction.jsp</result> 
+        </action> 
+        
+        <action name="homepageaction" class="com.appify.vidstream.portal.HomePageAction">
+            
+            <result name="success">CreateApplication.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action> 
+        
+        <action name="listcategorization" class="com.appify.vidstream.portal.ListAllCategorizationAction">
+            
+            <result name="success">ListAllCategorization.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action> 
+        
+        <action name="update_categorization" class="com.appify.vidstream.portal.UpdateCategorization">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1000020</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">PreListCategorization.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="delete_categorization" class="com.appify.vidstream.portal.DeleteCategorization">  
+            <result name="success">PreListCategorization.jsp</result>   
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="listcategories" class="com.appify.vidstream.portal.ListAllCategories">
+            <result name="success">ListAllCategories.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action> 
+        
+        <action name="update_categories" class="com.appify.vidstream.portal.UpdateCategoriesAction">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1000020</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">PreListVideoAction.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="delete_categories" class="com.appify.vidstream.portal.DeleteCategoriesAction">  
+            <result name="success">PreListVideoAction.jsp</result>   
+        </action>
+        
+        <action name="add_user" class="com.appify.vidstream.portal.AddNewUserAction">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1000020</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">HomePage.jsp</result> 
+            <result name="error">/error.jsp</result> 
+        </action>
+        
+        <action name="useraction" class="com.appify.vidstream.portal.preuseraction">
+            
+            <result name="success">CreateUser.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action> 
+        <action name="exploreutubeaction" class="com.appify.vidstream.portal.ExploreYoutubeAction">
+            
+            <result name="success">ExploreYoutube.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action> 
+        <action name="update_app_status" class="com.appify.vidstream.portal.UpdateApplicationStatusAction">
+            
+            <result name="success">prehomepage.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action> 
+        
+        <action name="listvideos" class="com.appify.vidstream.portal.ListAllVideoAction">
+            
+            <result name="success">ListAllVideos.jsp</result>  
+            <result name="error">ListAllVideos.jsp</result>  
+            
+        </action>
+        
+        <action name="addvideocatwise" class="com.appify.vidstream.portal.AddNewCategoryWiseAction" >
+            
+            <result name="success">PreExploreYouTubeAction.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        
+        <action name="allvideos" class="com.appify.vidstream.portal.AllVideoAction" >
+            
+            <result name="success">AllVideo.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="delete_video" class="com.appify.vidstream.portal.DeleteVideoAction" >
+            
+            <result name="success">PreListVideoAction.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>   
+        <action name="edit_video_details" class="com.appify.vidstream.portal.UpdateVideoAction" >
+            
+            <result name="success">PreListVideoAction.jsp</result>   
+            <result name="error">/error.jsp</result>
+        </action>  
+          
+        <action name="deleteexplorevideo" class="com.appify.vidstream.portal.DeleteExploreYouTubeVideoAction" >
+            
+            <result name="success">PreExploreYouTubeAction.jsp</result>   
+            <result name="error">/error.jsp</result>
+        </action>  
+        <action name="updateExploreYTVideo" class="com.appify.vidstream.portal.UpdateExploreYouTubeVideoAction" >
+            
+            <result name="success">PreExploreYouTubeAction.jsp</result>   
+            <result name="error">/error.jsp</result>
+        </action>  
+        
+        <action name="add_child_categories" class="com.appify.vidstream.portal.AddChildCategoryAction" >
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1000020</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">PreListVideoAction.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>  
+        
+        <action name="Map_Category_wise_video" class="com.appify.vidstream.portal.MapVideoCategoryWiseAction" >
+            
+            <result name="success">PreAllAppVideoAction.jsp</result>   
+            <result name="error">/error.jsp</result>
+        </action>  
+        <action name="perticular_Map_Category_wise_video" class="com.appify.vidstream.portal.MapVideoCategoryWiseAction" >
+            
+            <result name="success">PreListVideoAction.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action> 
+        
+        
+        <action name="preadd_property" class="com.appify.vidstream.portal.PreListallApplicationPropertyAction" >
+            
+            <result name="success">AddAppProperty.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action>
+        <action name="add_property" class="com.appify.vidstream.portal.AddNewAppPropertyAction" >
+            
+            <result name="success">PreListAppProperty.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="update_app_property" class="com.appify.vidstream.portal.UpdateAppPropertyAction" >
+            
+            <result name="success">PreListAppProperty.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="delete_app_property" class="com.appify.vidstream.portal.DeleteAppPropertyAction" >
+            
+            <result name="success">PreListAppProperty.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="preauthentication_token" class="com.appify.vidstream.portal.PreListAppAutenticationTokenAction" >
+            
+            <result name="success">TokenAuthentication.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="add_authentication_token" class="com.appify.vidstream.portal.AddNewAuthenticationTokenAction" >
+            
+            <result name="success">PreListAllAuthTokenAction.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="update_authentication_token" class="com.appify.vidstream.portal.UpdateAuthenticationTokenAction" >
+            
+            <result name="success">PreListAllAuthTokenAction.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="delete_authentication_token" class="com.appify.vidstream.portal.DeleteAuthenticationTokenAction" >
+            
+            <result name="success">PreListAllAuthTokenAction.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <action name="list_user_feedback" class="com.appify.vidstream.portal.PreListAllFeedbackAction" >
+            <result name="success">Feedback.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>
+        
+          <action name="delete_user_feedback" class="com.appify.vidstream.portal.DeleteUserFeedbackAction" >
+            <result name="success">PreListAllFeedback.jsp</result> 
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        
+    </package>
+    
+</struts>
