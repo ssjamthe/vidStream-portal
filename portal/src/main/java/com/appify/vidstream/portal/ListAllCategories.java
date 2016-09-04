@@ -75,7 +75,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
             categorization_ID = getCat_name();
             String SQL_get_cat_id = "select name from categorization where id='" + categorization_ID + "'";
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             PreparedStatement pst_getcat_id = con.prepareStatement(SQL_get_cat_id);
             ResultSet rs_getcat_id = pst_getcat_id.executeQuery();
             rs_getcat_id.next();

@@ -36,7 +36,7 @@ public class DeleteApplicationAction extends ActionSupport {
         try {
             con = null;
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String app_id = getHidden_app_id();
             String sql = "DELETE FROM application WHERE id='" + app_id + "'";

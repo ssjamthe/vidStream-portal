@@ -124,7 +124,7 @@ public class AddCategoriesAction extends ActionSupport implements
             //prntcat = sub_categories;
             int cat_id = Integer.parseInt(categorization_id);
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             sql_img = "INSERT INTO images(name,contents) values(?,?)";
             prest_img = con.prepareStatement(sql_img);
             prest_img.setString(1, cat_gir);

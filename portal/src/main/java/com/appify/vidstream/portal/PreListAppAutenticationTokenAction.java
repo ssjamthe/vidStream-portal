@@ -40,7 +40,7 @@ public class PreListAppAutenticationTokenAction extends ActionSupport implements
         list_all_auth_token = new ArrayList();
         list_auth_application_id = new ArrayList();
         try {
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             Sql_List_Auth_Token = "SELECT id,app_id,token, description FROM auth_token order by app_id asc;";
             pst_list_auth_token = con.prepareStatement(Sql_List_Auth_Token);
             rs_list_auth_token = pst_list_auth_token.executeQuery();

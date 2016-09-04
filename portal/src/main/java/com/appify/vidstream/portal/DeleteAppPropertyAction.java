@@ -39,7 +39,7 @@ public class DeleteAppPropertyAction extends ActionSupport {
       try {
             con = null;
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String Propname= getHidden_del_prop_name();
             String sql = "DELETE FROM property_table WHERE prop_name='" + Propname + "'";

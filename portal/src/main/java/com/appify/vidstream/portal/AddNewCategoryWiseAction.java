@@ -114,7 +114,7 @@ public class AddNewCategoryWiseAction extends ActionSupport {
         ArrayList<String> vidnamelistitems = new ArrayList<String>(Arrays.asList(explore_video_title.split("\\s*,\\s*")));
         ArrayList<String> vidpdlistitems = new ArrayList<String>(Arrays.asList(explore_video_published_date.split("\\s*,\\s*")));
         ArrayList<String> vidvcntlistitems = new ArrayList<String>(Arrays.asList(explore_video_view_count.split("\\s*,\\s*")));
-        con = conn.appify.vidstream.portal.DataConnection.getConnection();
+        con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
 
 

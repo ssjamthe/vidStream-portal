@@ -39,7 +39,7 @@ public class PreListallApplicationPropertyAction extends ActionSupport implement
     public String execute() throws Exception {
         list_all_property = new ArrayList();
         try {
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             Sql_List_Property = "SELECT prop_name, prop_value FROM property_table;";
             pst_list_property = con.prepareStatement(Sql_List_Property);
             rs_list_property = pst_list_property.executeQuery();

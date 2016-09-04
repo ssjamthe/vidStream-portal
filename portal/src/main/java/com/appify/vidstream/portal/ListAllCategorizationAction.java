@@ -62,7 +62,7 @@ public class ListAllCategorizationAction extends ActionSupport implements Sessio
         try {
            apnamid = getApp_name();
               app_id = Integer.parseInt(apnamid);
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             String sql_id = "select name from application where id='" + app_id + "'";
           
             PreparedStatement pst_id = con.prepareStatement(sql_id);

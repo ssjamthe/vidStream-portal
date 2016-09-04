@@ -65,7 +65,7 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
             nested_list = new ArrayList();
             category_id = getCategoies_Name();
             System.out.println("category_name inside ListAllVideoAction catid--------::::" + category_id);
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             String SQL_get_cate_id = "select name from category where id='" + category_id + "'";
             prst_categories = con.prepareStatement(SQL_get_cate_id);
             rs_categories = prst_categories.executeQuery();

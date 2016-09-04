@@ -81,7 +81,7 @@ public class MapVideoCategoryWiseAction extends ActionSupport {
             System.out.println("last_child_category" + last_child_category);
 
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
            String SQl_getMapcatid = "select id from category where name='" + last_child_category + "'";
             PreparedStatement pst_Mapcatid = con.prepareStatement(SQl_getMapcatid);

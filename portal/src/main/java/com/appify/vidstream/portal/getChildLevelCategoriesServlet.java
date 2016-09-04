@@ -60,7 +60,7 @@ public class getChildLevelCategoriesServlet extends HttpServlet {
         try {
             top_level_parent_category = request.getParameter("top_level_parent_category");
             System.out.println("top_level_parent_category::::" + top_level_parent_category);
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String query_parent_catid = "select id from category where name='" + top_level_parent_category + "'";
             PreparedStatement pst_parent_catid = con.prepareStatement(query_parent_catid);

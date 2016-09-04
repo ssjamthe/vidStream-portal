@@ -56,7 +56,7 @@ public class getuserfeedbackbyAppwise extends HttpServlet {
             ar = new ArrayList();
             app_id = request.getParameter("app_id");
             System.out.println("categorization_id::::" + app_id);
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
 
             if (app_id.equals("Select")) {

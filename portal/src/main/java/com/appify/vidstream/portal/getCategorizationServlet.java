@@ -63,7 +63,7 @@ public class getCategorizationServlet extends HttpServlet {
             categorization_name = request.getParameter("categorization_name");
             System.out.println("categorization_name::::" + categorization_name);
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             Sql_get_categorization_ref_id = "select id  from categorization where name='" + categorization_name + "'";
             pst_ref_categorization = con.prepareStatement(Sql_get_categorization_ref_id);
             rs_ref_categorization = pst_ref_categorization.executeQuery();

@@ -70,7 +70,7 @@ public class UpdateAuthenticationTokenAction extends ActionSupport {
     
         @Override
     public String execute() throws Exception {
-               con = conn.appify.vidstream.portal.DataConnection.getConnection();
+               con = com.appify.vidstream.portal.util.DataConnection.getConnection();
                System.out.println("hidden_edit_auth_sr_id----"+hidden_edit_auth_sr_id);
                 System.out.println("hidden_edit_auth_app_id----"+hidden_edit_auth_app_id); 
                 System.out.println("edit_auth_token----"+edit_auth_token);

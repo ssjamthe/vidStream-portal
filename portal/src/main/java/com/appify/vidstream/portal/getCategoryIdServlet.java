@@ -62,7 +62,7 @@ public class getCategoryIdServlet extends HttpServlet {
             category_name = request.getParameter("category_name");
             System.out.println("category_name::::" + category_name);
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             Sql_get_category_ref_id = "select id  from category where name='" + category_name + "'";
             pst_ref_category = con.prepareStatement(Sql_get_category_ref_id);
             rs_ref_category = pst_ref_category.executeQuery();

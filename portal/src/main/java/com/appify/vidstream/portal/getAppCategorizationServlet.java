@@ -59,7 +59,7 @@ public class getAppCategorizationServlet extends HttpServlet {
             app_id = request.getParameter("app_id");
             System.out.println("app_id inside getAppCategorizationServlet::::" + app_id);
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
 
             sql_app_catzion = "select id,name from categorization where app_id='" + app_id + "'  ORDER BY id asc";

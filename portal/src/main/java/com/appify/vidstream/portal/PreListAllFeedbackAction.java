@@ -44,7 +44,7 @@ public class PreListAllFeedbackAction extends ActionSupport implements SessionAw
         list_all_user_feedback = new ArrayList();
         try {
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             Sql_List_user_feedback = "SELECT app_id, device_id, user_comment, comment_date FROM feedback order by comment_date desc;";
             pst_list_user_feedback = con.prepareStatement(Sql_List_user_feedback);
             rs_list_user_feedback = pst_list_user_feedback.executeQuery();

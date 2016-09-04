@@ -49,7 +49,7 @@ public class DeleteUserFeedbackAction extends ActionSupport {
     public String execute() throws Exception {
            try {
             con = null;
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String sql = "DELETE FROM feedback WHERE app_id='" + hidden_del_view_appid + "' and device_id='"+hidden_del_view_device_id+"' and user_comment='"+hidden_del_view_user_feedback+"'";
             System.out.println("sql_for delete feedback:::" + sql);

@@ -50,7 +50,7 @@ public class AddNewAppPropertyAction extends ActionSupport {
             Sql_Insert = "INSERT INTO property_table(\n"
                     + "            prop_name, prop_value)\n"
                     + "    VALUES (?, ?); ";
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             
            pst_insert = con.prepareStatement(Sql_Insert);
            pst_insert.setString(1, property_name);

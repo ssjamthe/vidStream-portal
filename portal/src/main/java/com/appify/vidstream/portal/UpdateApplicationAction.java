@@ -119,7 +119,7 @@ public class UpdateApplicationAction extends ActionSupport implements
 
 
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             SimpleDateFormat originalFormat;
             java.util.Date date = new java.util.Date();
             System.out.println(new Timestamp(date.getTime()));

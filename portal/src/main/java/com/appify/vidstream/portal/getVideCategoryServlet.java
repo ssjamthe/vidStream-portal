@@ -63,7 +63,7 @@ public class getVideCategoryServlet extends HttpServlet {
             video_id = request.getParameter("videoid");
             System.out.println("video_id::::" + video_id);
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
            /* Sql_get_video_ref_id = "select id  from youtube_video where youtube_id='" + video_id + "'";
             pst_ref_vid = con.prepareStatement(Sql_get_video_ref_id);
             rs_ref_vid = pst_ref_vid.executeQuery();

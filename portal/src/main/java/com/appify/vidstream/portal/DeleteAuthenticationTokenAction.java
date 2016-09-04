@@ -26,7 +26,7 @@ public class DeleteAuthenticationTokenAction extends ActionSupport {
     public String execute() throws Exception {
            try {
             con = null;
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String sql = "DELETE FROM auth_token WHERE id='" + hidden_del_auth_sr_id + "' and app_id='"+hidden_del_auth_app_id+"' and token='"+hidden_del_auth_app_auth_token+"'";
             System.out.println("sql_for delete auth_token:::" + sql);

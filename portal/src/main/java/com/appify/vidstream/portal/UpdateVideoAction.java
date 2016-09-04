@@ -56,7 +56,7 @@ public class UpdateVideoAction extends ActionSupport {
             con = null;
             sql = null;
             prest = null;
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String vid = getHidden_Edit_Video_Id();
             String VName = getEdit_Video_Title();

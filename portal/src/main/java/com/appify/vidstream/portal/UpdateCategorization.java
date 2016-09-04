@@ -114,7 +114,7 @@ public class UpdateCategorization extends ActionSupport implements
             System.out.println(new Timestamp(date.getTime()));
             Timestamp mod_date = new Timestamp(date.getTime());
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             String hideen_app_id = getHidden_categorization_appid();
 
             String updte_cat_name = getEdit_categorization_Name();

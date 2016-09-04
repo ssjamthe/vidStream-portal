@@ -57,7 +57,7 @@ public class DeleteCategorization extends ActionSupport {
 
 
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
         String app_id =getHidden_app_id();
         String cat_name=getHidden_categorization_name();

@@ -60,7 +60,7 @@ public class getAppTopLevelcategoryServlet extends HttpServlet {
             categorization_id = request.getParameter("categorization_id");
             System.out.println("categorization_id::::" + categorization_id);
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
           /*  String SQl_parent_category_list = "select distinct parent_category_id from parent_child_category_mappings order by parent_category_id asc";
             PreparedStatement pst_parent_category_list = con.prepareStatement(SQl_parent_category_list);

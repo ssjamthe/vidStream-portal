@@ -47,7 +47,7 @@ public class DeleteCategoriesAction extends ActionSupport {
 
 
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
         String CATID =getHidden_category_id();
         String CATNAME =getHidden_category_name();

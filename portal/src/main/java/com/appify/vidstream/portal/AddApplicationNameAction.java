@@ -102,7 +102,7 @@ public class AddApplicationNameAction extends ActionSupport implements
             apn = app_name_1;
             sta = hidden_app_status;
             System.out.println("hidden_app_status::::"+hidden_app_status);
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             sql_image = "INSERT INTO images(name,contents) values(?,?)";
             sql = "INSERT INTO application(name,status,bg_image) VALUES (?,?,?)";

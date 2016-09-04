@@ -46,7 +46,7 @@ public class AllVideoAction extends ActionSupport implements SessionAware {
     public String execute() throws Exception {
 
         try {
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             all_video_list_main = new ArrayList();
             compare_video_id_list = new ArrayList();
             //  System.out.println("Inside AllVideoAction Class:::::");

@@ -40,7 +40,7 @@ public class ExploreYoutubeAction extends ActionSupport implements SessionAware 
             video_id_list = new ArrayList();
             Category_Wise_Video_List = new ArrayList();
             category_idandname_list = new ArrayList();
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             SQL_video_list = "select distinct id from youtube_video order by id";
             pst_video_list = con.prepareStatement(SQL_video_list);
             rs_video_list = pst_video_list.executeQuery();

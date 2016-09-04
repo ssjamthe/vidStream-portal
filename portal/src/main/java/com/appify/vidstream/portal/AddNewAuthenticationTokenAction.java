@@ -70,7 +70,7 @@ public class AddNewAuthenticationTokenAction extends ActionSupport {
             Sql_Insert = "INSERT INTO auth_token(\n"
                     + "            token, app_id, description)\n"
                     + "    VALUES ( ?, ?, ?);";
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             pst_insert = con.prepareStatement(Sql_Insert);
             pst_insert.setString(1, auth_token);

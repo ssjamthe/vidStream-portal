@@ -58,7 +58,7 @@ public class getApplicationNameServlet extends HttpServlet {
             app_name = request.getParameter("app_name");
             System.out.println("app_name::::"+app_name);
            
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
           
 
            

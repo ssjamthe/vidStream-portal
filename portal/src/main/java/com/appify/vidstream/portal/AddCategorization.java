@@ -120,7 +120,7 @@ public class AddCategorization extends ActionSupport implements
            // System.out.println("current_app_id...................."+current_app_id);
          int app_id=  Integer.parseInt(current_app_id);
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             sql_img = "INSERT INTO images(name,contents) values(?,?)";
             sql = "INSERT INTO categorization(app_id,name,image) VALUES (?,?,?)";
             prest_img = con.prepareStatement(sql_img);

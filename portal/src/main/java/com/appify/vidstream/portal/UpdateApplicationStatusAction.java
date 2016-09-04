@@ -54,7 +54,7 @@ public class UpdateApplicationStatusAction extends ActionSupport {
 
             SimpleDateFormat originalFormat;
 
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
            
             String App_id = getHidden_update_app_id();
             String status_update = getUpdate_status();

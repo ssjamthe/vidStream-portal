@@ -97,7 +97,7 @@ public class UpdateExploreYouTubeVideoAction extends ActionSupport {
             con = null;
             sql = null;
             prest = null;
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String vid = getHidden_ExpYTupdate_video_Id();
             String VName = getExpYTupdate_Video_Name();

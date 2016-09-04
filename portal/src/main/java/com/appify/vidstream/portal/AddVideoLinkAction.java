@@ -88,7 +88,7 @@ public class AddVideoLinkAction extends ActionSupport {
             ArrayList<String> vidnamelistitems = new ArrayList<String>(Arrays.asList(video_title.split("\\s*,\\s*")));
             ArrayList<String> vidpdlistitems = new ArrayList<String>(Arrays.asList(video_published_date.split("\\s*,\\s*")));
             ArrayList<String> vidvcntlistitems = new ArrayList<String>(Arrays.asList(video_views_count.split("\\s*,\\s*")));
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             for (int i = 0; i < vidlistitems.size(); i++) {
                 current_video_id = vidlistitems.get(i);
                 System.out.println("current_video_id----------" + current_video_id);

@@ -43,7 +43,7 @@ public class UpdateAppPropertyAction extends ActionSupport {
     
      @Override
     public String execute() throws Exception {
-          con = conn.appify.vidstream.portal.DataConnection.getConnection();
+          con = com.appify.vidstream.portal.util.DataConnection.getConnection();
          try {
              SQl_update="update property_table set prop_name=?,prop_value=? where prop_name='"+hidden_edit_prop_name+"' ";
            pst_update =  con.prepareStatement(SQl_update);

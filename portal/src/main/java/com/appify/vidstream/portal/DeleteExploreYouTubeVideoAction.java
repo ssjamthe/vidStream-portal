@@ -33,7 +33,7 @@ public class DeleteExploreYouTubeVideoAction extends ActionSupport {
     public String execute() throws Exception {
        try {
             con = null;
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String vid = getHidden_explorevideoID();
             String sql = "DELETE FROM youtube_video WHERE id ='" + vid + "'";

@@ -108,7 +108,7 @@ public class AddNewUserAction extends ActionSupport implements
             pwd = password;
             urole = user_role;
             Integer.parseInt(urole);
-            con = conn.appify.vidstream.portal.DataConnection.getConnection();
+            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             sql_image = "INSERT INTO images(name,contents) values(?,?)";
             sql = "INSERT INTO portal_user(user_name,password,role_id,user_image_id) VALUES (?,?,?,?)";
