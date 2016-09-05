@@ -39,24 +39,15 @@ public class getCategorizationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "success";
-    private final static String FAILURE = "failure";
-    private Connection con, connection;
-    private String categorization_id;
-    private String Sql_get_categorization_ref_id, categorization_name;
-    private PreparedStatement pst_ref_categorization;
-    private ResultSet rs_ref_categorization;
-   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
        
-        con = null;
-        Sql_get_categorization_ref_id = "";
-        pst_ref_categorization = null;
-        rs_ref_categorization = null;
+    	Connection con = null;
+    	String categorization_id,Sql_get_categorization_ref_id,categorization_name = "";
+    	PreparedStatement pst_ref_categorization = null;
+    	ResultSet rs_ref_categorization = null;
 
-        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {

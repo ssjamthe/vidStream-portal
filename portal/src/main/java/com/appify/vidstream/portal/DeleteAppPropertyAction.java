@@ -52,11 +52,6 @@ public class DeleteAppPropertyAction extends ActionSupport {
             e.printStackTrace(System.out);
             return ERROR;
         } finally {
-            try {
-
-
-                con.close();
-            } catch (Exception e) {
                 try {
                     if (null != con) {
                         con.close();
@@ -64,7 +59,7 @@ public class DeleteAppPropertyAction extends ActionSupport {
                 } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                 }
-            }
+            
         }
     }
 }

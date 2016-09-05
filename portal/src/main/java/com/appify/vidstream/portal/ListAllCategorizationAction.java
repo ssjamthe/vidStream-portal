@@ -139,20 +139,7 @@ public class ListAllCategorizationAction extends ActionSupport implements Sessio
                             }
                         } while (executeQuery.next());
 
-
-
-
                     }
-
-
-
-
-
-
-
-
-
-
 
                 }
                 categorization_list.add(String.valueOf(counter_category));
@@ -209,20 +196,19 @@ public class ListAllCategorizationAction extends ActionSupport implements Sessio
         } catch (Exception e) {
             System.out.println("exception" + e);
             return ERROR;
-        } finally {
+        }finally {
             try {
                 rs.close();
                 stmt.close();
-
-                con.close();
             } catch (Exception e) {
-                try {
-                    if (null != con) {
-                        con.close();
-                    }
-                } catch (SQLException ex) {
-                    ex.printStackTrace(System.out);
+               e.printStackTrace();
+            }
+            try {
+                if (null != con) {
+                    con.close();
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
             }
         }
         return SUCCESS;

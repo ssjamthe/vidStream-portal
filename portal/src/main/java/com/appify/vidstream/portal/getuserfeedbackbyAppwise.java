@@ -32,24 +32,15 @@ import javax.servlet.http.HttpSession;
  */
 public class getuserfeedbackbyAppwise extends HttpServlet {
 
-    private static final String SUCCESS = "success";
-    private final static String FAILURE = "failure";
-    private Connection con;
-    private String sql_getfeedback_appwise, app_id;
-    private PreparedStatement stmt_app_feedback;
-    private ResultSet rs_app_feedback;
-    private String convert_comment_Date;
-    List ar;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
 
-        con = null;
-        sql_getfeedback_appwise = "";
-        stmt_app_feedback = null;
-        rs_app_feedback = null;
+    	Connection con = null;
+        String sql_getfeedback_appwise,  app_id ,convert_comment_Date= "";
+        PreparedStatement stmt_app_feedback = null;
+        ResultSet rs_app_feedback = null;
+        List ar;
 
-        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {

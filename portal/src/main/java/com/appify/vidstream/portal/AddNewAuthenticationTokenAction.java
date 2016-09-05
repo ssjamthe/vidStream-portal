@@ -9,6 +9,7 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -83,6 +84,19 @@ public class AddNewAuthenticationTokenAction extends ActionSupport {
 
             System.out.println("Exception in try for insert in auth_token----" + e);
             return ERROR;
+        }finally {
+            try {
+
+            	pst_insert.close();
+            } catch (Exception e) {
+            }
+            try {
+                if (null != con) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Exception" + ex);
+            }
         }
 
         return SUCCESS;

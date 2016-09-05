@@ -118,8 +118,6 @@ public class AddChildCategoryAction extends ActionSupport implements
 
         try {
             String apn, cat_name2, cat_gir, prntcat;
-            
-            
             System.err.println("parent_cat_name::::::::::::::-" + parent_cat_name);
             parent_category_ID = Integer.parseInt(parent_cat_name);
             //apn = appl_name222;
@@ -229,14 +227,12 @@ public class AddChildCategoryAction extends ActionSupport implements
             } catch (Exception exp) {
                 System.out.println("Exception----" + exp);
             }
-            con.close();
             return SUCCESS;
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Exception" + e);
             return "error";
         } finally {
             try {
-
                 stmt.close();
                 prest.close();
             } catch (Exception e) {

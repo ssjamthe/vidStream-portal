@@ -36,23 +36,15 @@ public class getAppCategorizationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "success";
-    private final static String FAILURE = "failure";
-    private Connection con, connection;
-    private String sql_app_catzion, app_name, app_id;
-    private PreparedStatement stmt_app_catzion, stmt_system_integrator_name;
-    private ResultSet rs_app_catzion, rs_system_integrator_name;
-    private List list_device_name;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        list_device_name = new ArrayList();
-        con = null;
-        sql_app_catzion = "";
-        stmt_app_catzion = null;
-        rs_app_catzion = null;
+    	Connection con = null;
+    	String sql_app_catzion = "";
+    	String app_id;
+    	PreparedStatement stmt_app_catzion = null;
+    	ResultSet rs_app_catzion = null;
 
-        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {

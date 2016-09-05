@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.sun.net.httpserver.Authenticator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -62,6 +63,18 @@ public class AddNewAppPropertyAction extends ActionSupport {
             
              System.out.println("Exception in try for insert----"+e);
              return ERROR;
+        }finally {
+            try {
+            	pst_insert.close();
+            } catch (Exception e) {
+            }
+            try {
+                if (null != con) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Exception" + ex);
+            }
         }
 
       return SUCCESS;

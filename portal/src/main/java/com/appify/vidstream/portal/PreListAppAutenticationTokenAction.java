@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,14 @@ public class PreListAppAutenticationTokenAction extends ActionSupport implements
 
             System.out.println("Exception in try ---------" + exp);
             return ERROR;
+        }finally {
+            try {
+                if (null != con) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
         }
 
         return SUCCESS;

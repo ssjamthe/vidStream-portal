@@ -38,23 +38,16 @@ public class getChildLevelCategoriesServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "success";
-    private final static String FAILURE = "failure";
-    private Connection con, connection;
-    private int top_level_parent_category_id, child_category_id;
-    private String Sql_get_child_category_id, top_level_parent_category;
-    private PreparedStatement pst_child_category_id;
-    private ResultSet rs_child_category_id;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         ArrayList ar = new ArrayList();
-        con = null;
-        Sql_get_child_category_id = "";
-        pst_child_category_id = null;
-        rs_child_category_id = null;
+        Connection con = null;
+        int top_level_parent_category_id;
+        String Sql_get_child_category_id, top_level_parent_category = "";
+        PreparedStatement pst_child_category_id = null;
+        ResultSet rs_child_category_id = null;
 
-        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {

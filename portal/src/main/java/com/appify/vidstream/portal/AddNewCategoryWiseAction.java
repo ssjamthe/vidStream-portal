@@ -103,6 +103,7 @@ public class AddNewCategoryWiseAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
+    	try{
         System.out.println("hidden_Explore_video_id---------------" + hidden_Explore_video_id);
         System.out.println("explore_video_title--------------------" + explore_video_title);
         System.out.println("explore_video_published_date---=======" + explore_video_published_date);
@@ -116,9 +117,7 @@ public class AddNewCategoryWiseAction extends ActionSupport {
         ArrayList<String> vidvcntlistitems = new ArrayList<String>(Arrays.asList(explore_video_view_count.split("\\s*,\\s*")));
         con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
-
-
-        try {
+        
             String explore_you_tube_video_count;
 
             for (int i = 0; i < vidlistitems.size(); i++) {
@@ -292,6 +291,7 @@ public class AddNewCategoryWiseAction extends ActionSupport {
                         System.out.println("SQL_video_attribute_value_pd----------------------------" + SQL_video_attribute_value_pd);
                         pst_video_attribute_value_pd.executeUpdate();
                         System.out.println("added successfully in video_attribute_value for attribute_id" + pdate_ref_id);
+                        pst_video_attribute_value_pd.close();
                     } else {
                         System.out.println("Allready Video and its attributes available in video_attribute_value ");
 
@@ -302,10 +302,10 @@ public class AddNewCategoryWiseAction extends ActionSupport {
                     System.out.println("Allready in Database in youtube_video " + current_video_id);
                     System.out.println("Exception in try for insert in video_attribute_value" + exp);
                 }
+                
 
             }
 
-            con.close();
             return SUCCESS;
         } catch (Exception exp) {
             System.out.println("Exception" + exp);
@@ -314,6 +314,7 @@ public class AddNewCategoryWiseAction extends ActionSupport {
             try {
                 prest.close();
                 pst_map_insert.close();
+                
             } catch (Exception e) {
                 System.out.println("INNER EXCEPTION1" + e);
             }

@@ -42,11 +42,6 @@ public class DeleteCategoriesAction extends ActionSupport {
     
     public String execute() throws Exception {
          try {
-            con = null;
-
-
-
-
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
         String CATID =getHidden_category_id();
@@ -63,11 +58,6 @@ public class DeleteCategoriesAction extends ActionSupport {
             e.printStackTrace(System.out);
             return ERROR;
         } finally {
-            try {
-                
-
-                con.close();
-            } catch (Exception e) {
                 try {
                     if (null != con) {
                         con.close();
@@ -75,7 +65,6 @@ public class DeleteCategoriesAction extends ActionSupport {
                 } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                 }
-            }
         }
     }
 }

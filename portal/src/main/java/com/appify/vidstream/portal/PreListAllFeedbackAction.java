@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,6 +80,14 @@ public class PreListAllFeedbackAction extends ActionSupport implements SessionAw
             System.out.println("inside PreListAllFeedbackAction Exception in Try " + exp);
             return ERROR;
 
+        }finally {
+            try {
+                if (null != con) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
         }
 
         return SUCCESS;

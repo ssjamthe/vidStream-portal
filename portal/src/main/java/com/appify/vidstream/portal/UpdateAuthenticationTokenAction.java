@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -70,14 +71,12 @@ public class UpdateAuthenticationTokenAction extends ActionSupport {
     
         @Override
     public String execute() throws Exception {
-               con = com.appify.vidstream.portal.util.DataConnection.getConnection();
+            try{   
+        	con = com.appify.vidstream.portal.util.DataConnection.getConnection();
                System.out.println("hidden_edit_auth_sr_id----"+hidden_edit_auth_sr_id);
                 System.out.println("hidden_edit_auth_app_id----"+hidden_edit_auth_app_id); 
                 System.out.println("edit_auth_token----"+edit_auth_token);
                         System.out.println("edit_auth_token_description----"+edit_auth_token_description);
-                
-                
-         try {
              SQl_update="update auth_token set token=?,app_id=?,description=? where id='"+hidden_edit_auth_sr_id+"' ";
            pst_update =  con.prepareStatement(SQl_update);
            pst_update.setString(1, edit_auth_token);
@@ -87,9 +86,16 @@ public class UpdateAuthenticationTokenAction extends ActionSupport {
               System.out.println("Update Successfully");
              
          } catch (Exception e) {
-             
              System.out.println("Exception in Try------------"+e);
              return ERROR;
+         }finally {
+             try {
+                 if (null != con) {
+                     con.close();
+                 }
+             } catch (SQLException ex) {
+                 ex.printStackTrace(System.out);
+             }
          }
          return SUCCESS;
     }

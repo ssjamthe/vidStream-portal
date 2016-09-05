@@ -259,16 +259,15 @@ public class AllVideoAction extends ActionSupport implements SessionAware {
             try {
                 rs.close();
                 stmt.close();
-
-                con.close();
             } catch (Exception e) {
-                try {
-                    if (null != con) {
-                        con.close();
-                    }
-                } catch (SQLException ex) {
-                    ex.printStackTrace(System.out);
+                
+            }
+            try {
+                if (null != con) {
+                    con.close();
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
             }
         }
         return SUCCESS;

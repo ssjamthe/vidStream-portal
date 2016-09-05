@@ -131,7 +131,6 @@ public class AddApplicationNameAction extends ActionSupport implements
             prest.setInt(3, img_id);
             prest.executeUpdate();
             System.out.println("Application Master added successfully");
-            con.close();
             return SUCCESS;
             
         } catch (SQLException | ClassNotFoundException e) {
@@ -139,15 +138,14 @@ public class AddApplicationNameAction extends ActionSupport implements
             return "error";
         } finally {
             try {
-
-
                 prest.close();
             } catch (Exception e) {
+            	e.printStackTrace();
             }
             try {
                 rs_st.close();
-
             } catch (Exception e) {
+            	e.printStackTrace();
             }
             try {
                 if (null != con) {

@@ -138,15 +138,12 @@ public class AddNewUserAction extends ActionSupport implements
              prest.setInt(4, img_id);
             prest.executeUpdate();
             System.out.println("User added successfully");
-            con.close();
             return SUCCESS;
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Exception" + e);
             return "error";
         } finally {
             try {
-
-
                 prest.close();
             } catch (Exception e) {
             }

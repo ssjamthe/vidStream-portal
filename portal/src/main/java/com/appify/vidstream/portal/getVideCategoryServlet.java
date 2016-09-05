@@ -39,24 +39,15 @@ public class getVideCategoryServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "success";
-    private final static String FAILURE = "failure";
-    private Connection con, connection;
-    private int category_id;
-    private String Sql_get_video_ref_id, video_id, ref_video_id, SQL_category_id, SQl_category_name, Category_Name;
-    private PreparedStatement pst_ref_vid, pst_cat_id, pst_cat_name;
-    private ResultSet rs_ref_vid, rs_cat_id, rs_cat_name;
-    private List list_device_name;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        list_device_name = new ArrayList();
-        con = null;
-        Sql_get_video_ref_id = "";
-        pst_ref_vid = null;
-        rs_ref_vid = null;
+        Connection con = null;
+        int category_id;
+        String video_id, SQL_category_id, SQl_category_name, Category_Name = "";
+        PreparedStatement pst_cat_id = null, pst_cat_name = null;
+        ResultSet  rs_cat_id = null, rs_cat_name = null;
 
-        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {

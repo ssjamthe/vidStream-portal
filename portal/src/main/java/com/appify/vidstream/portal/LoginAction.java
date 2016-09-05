@@ -272,6 +272,14 @@ public class LoginAction extends ActionSupport implements SessionAware {
         } catch (Exception e) {
             System.out.println("Exception---------------" + e);
             return "error";
+        }finally {
+            try {
+                if (null != con) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
         }
     }
 
@@ -310,6 +318,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 password = (String) session.getAttribute("uPass");
                 username = (String) session.getAttribute("uName");
             }
+              
+       try{
         try {
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
         } catch (SQLException ex) {
@@ -397,6 +407,15 @@ public class LoginAction extends ActionSupport implements SessionAware {
         } else {
             addActionError(" Invalid Username/Password!");
         }
+       }finally {
+           try {
+               if (null != con) {
+                   con.close();
+               }
+           } catch (SQLException ex) {
+               ex.printStackTrace(System.out);
+           }
+       }
 
     }
 }

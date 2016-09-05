@@ -38,24 +38,15 @@ public class getCategoryIdServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "success";
-    private final static String FAILURE = "failure";
-    private Connection con, connection;
-    private String category_id;
-    private String Sql_get_category_ref_id, category_name;
-    private PreparedStatement pst_ref_category;
-    private ResultSet rs_ref_category;
-   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
        
-        con = null;
-        Sql_get_category_ref_id = "";
-        pst_ref_category = null;
-        rs_ref_category = null;
+    	Connection con = null;
+    	String category_id,Sql_get_category_ref_id ,category_name= "";
+    	PreparedStatement pst_ref_category = null;
+    	ResultSet rs_ref_category = null;
 
-        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {

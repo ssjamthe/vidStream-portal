@@ -37,21 +37,14 @@ public class getApplicationNameServlet extends HttpServlet {
      */
     private static final String SUCCESS = "success";
     private final static String FAILURE = "failure";
-    private Connection con, connection;
-    private String sql_app_name,  app_name;
-    private PreparedStatement stmt_app_name, stmt_system_integrator_name;
-    private ResultSet rs_app_name, rs_system_integrator_name;
-    private List list_device_name;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        list_device_name = new ArrayList();
-        con = null;
-        sql_app_name = "";
-        stmt_app_name = null;
-        rs_app_name = null;
+    	Connection con = null;
+    	String sql_app_name , app_name= "";
+    	PreparedStatement stmt_app_name = null;
+    	ResultSet rs_app_name = null;
 
-        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
@@ -59,12 +52,6 @@ public class getApplicationNameServlet extends HttpServlet {
             System.out.println("app_name::::"+app_name);
            
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
-          
-
-           
-
-
-
 
             sql_app_name= "select id from application where name='" + app_name + "'  ORDER BY id";
 

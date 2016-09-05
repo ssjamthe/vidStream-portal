@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -183,6 +184,25 @@ public class ExploreYoutubeAction extends ActionSupport implements SessionAware 
         } catch (Exception exp) {
             System.out.println("Exception in try ExploreYoutubeAction:::" + exp);
             return ERROR;
+        }finally {
+            try {
+
+            	pst_video_list.close();
+            	pst_category_wise_video_list.close();
+            } catch (Exception e) {
+            }
+            try {
+            	rs_video_list.close();
+            	rs_category_wise_video_list.close();
+            } catch (Exception e) {
+            }
+            try {
+                if (null != con) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Exception" + ex);
+            }
         }
     }
 
