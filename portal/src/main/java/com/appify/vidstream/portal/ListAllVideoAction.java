@@ -257,9 +257,16 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
                 rs.close();
                 prst_categories.close();
                 pstmt.close();
-                con.close();
             } catch (Exception e) {
                 System.out.println("exception in finally try" + e);
+            }
+            
+            try {
+                if (null != con) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
             }
         }
 
