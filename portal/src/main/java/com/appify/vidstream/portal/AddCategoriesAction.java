@@ -189,12 +189,15 @@ public class AddCategoriesAction extends ActionSupport implements
             } catch (Exception exp) {
                 System.out.println("Exception----" + exp);
             }
+
+            con.close();
             return SUCCESS;
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Exception" + e);
             return "error";
         } finally {
             try {
+
                 stmt.close();
                 prest.close();
             } catch (Exception e) {

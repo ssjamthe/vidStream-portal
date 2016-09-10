@@ -177,15 +177,16 @@ public class UpdateCategorization extends ActionSupport implements
         } finally {
             try {
                 prest.close();
+
+                con.close();
             } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                if (null != con) {
-                    con.close();
+                try {
+                    if (null != con) {
+                        con.close();
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
             }
         }
         return SUCCESS;

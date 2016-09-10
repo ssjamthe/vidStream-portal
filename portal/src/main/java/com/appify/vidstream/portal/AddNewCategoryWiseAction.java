@@ -103,13 +103,18 @@ public class AddNewCategoryWiseAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-    	try{
         System.out.println("hidden_Explore_video_id---------------" + hidden_Explore_video_id);
         System.out.println("explore_video_title--------------------" + explore_video_title);
         System.out.println("explore_video_published_date---=======" + explore_video_published_date);
         System.out.println("explore_video_view_count---------------" + explore_video_view_count);
-
+        System.out.println("explore_video_category_wise---------------" + explore_video_category_wise);
         System.out.println("Exp_last_child_category---------------" + Exp_last_child_category);
+        System.out.println("ExpYTube_Categorization---------------" + ExpYTube_Categorization);
+
+        if (Exp_last_child_category.equals("")) {
+            Exp_last_child_category = explore_video_category_wise;
+        } else {
+        }
 
         ArrayList<String> vidlistitems = new ArrayList<String>(Arrays.asList(hidden_Explore_video_id.split("\\s*,\\s*")));
         ArrayList<String> vidnamelistitems = new ArrayList<String>(Arrays.asList(explore_video_title.split("\\s*,\\s*")));
@@ -117,7 +122,9 @@ public class AddNewCategoryWiseAction extends ActionSupport {
         ArrayList<String> vidvcntlistitems = new ArrayList<String>(Arrays.asList(explore_video_view_count.split("\\s*,\\s*")));
         con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
-        
+
+
+        try {
             String explore_you_tube_video_count;
 
             for (int i = 0; i < vidlistitems.size(); i++) {
@@ -129,15 +136,14 @@ public class AddNewCategoryWiseAction extends ActionSupport {
 
                 if ((current_video_name.contains(""))) {
                     System.out.println("Loop 1");
-                   updated_video_name = current_video_name.replaceAll("[\"]", "");
-                   /// System.out.println(result);
+                    updated_video_name = current_video_name.replaceAll("[\"]", "");
+                    /// System.out.println(result);
 
                     //current_video_name.replace('\"', ' ');
                     System.out.println("Lopp current_video_name" + updated_video_name);
                 } else {
-                    
                 }
-                
+
                 current_video_pdate = vidpdlistitems.get(i);
                 current_video_vcount = vidvcntlistitems.get(i);
                 explore_you_tube_video_count = vidvcntlistitems.get(i);
@@ -182,20 +188,47 @@ public class AddNewCategoryWiseAction extends ActionSupport {
                     System.out.println("Expection in try" + exp);
                 }
 
-                 SimpleDateFormat originalFormat;
-            java.util.Date date = new java.util.Date();
-            System.out.println(new Timestamp(date.getTime()));
-            Timestamp mod_date = new Timestamp(date.getTime());
+                SimpleDateFormat originalFormat;
+                java.util.Date date = new java.util.Date();
+                System.out.println(new Timestamp(date.getTime()));
+                Timestamp mod_date = new Timestamp(date.getTime());
 
-             
-                String sql_update_mod_date = "UPDATE category set date_modified=?  where id='" + cate + "'";
-                
-                PreparedStatement pst_update_mod_date = con.prepareStatement(sql_update_mod_date);
-                pst_update_mod_date.setTimestamp(1, mod_date);
-                System.out.println("sql_update_mod_date-----------"+sql_update_mod_date);
-                pst_update_mod_date.executeUpdate();
-                
+                try {
+                    String sql_update_mod_date = "UPDATE category set date_modified=?  where id='" + cate + "'";
 
+                    PreparedStatement pst_update_mod_date = con.prepareStatement(sql_update_mod_date);
+                    pst_update_mod_date.setTimestamp(1, mod_date);
+                    System.out.println("sql_update_mod_date-----------" + sql_update_mod_date);
+                    pst_update_mod_date.executeUpdate();
+
+                    String SQL_get_CATID = "SELECT categorization_id FROM category where id='" + cate + "' ";
+                    PreparedStatement pst_GETCATID = con.prepareStatement(SQL_get_CATID);
+                    ResultSet rs_GETCATID = pst_GETCATID.executeQuery();
+                    rs_GETCATID.next();
+
+                    String sql_updateCatzion_mod_date = "UPDATE categorization set date_modified=?  where id='" + rs_GETCATID.getInt(1) + "'";
+
+                    PreparedStatement pst_update_Catzionmod_date = con.prepareStatement(sql_updateCatzion_mod_date);
+                    pst_update_Catzionmod_date.setTimestamp(1, mod_date);
+                    System.out.println("sql_update_mod_date-----------" + sql_updateCatzion_mod_date);
+                    pst_update_Catzionmod_date.executeUpdate();
+
+                    String SQL_GETAPPID = "SELECT app_id FROM categorization where id='" + rs_GETCATID.getInt(1) + "';";
+                    System.out.println("SQL_GETAPPID-----------" + SQL_GETAPPID);
+                    PreparedStatement pst_GETAPPID = con.prepareStatement(SQL_GETAPPID);
+                    ResultSet Rs_GETAPPID = pst_GETAPPID.executeQuery();
+                    Rs_GETAPPID.next();
+
+                    String sql_app_update_mod_date = "UPDATE application set date_modified=?  where id='" + Rs_GETAPPID.getInt(1) + "'";
+                    System.out.println("sql_app_update_mod_date-----------" + sql_app_update_mod_date);
+                    PreparedStatement pst_update_appmod_date = con.prepareStatement(sql_app_update_mod_date);
+                    pst_update_appmod_date.setTimestamp(1, mod_date);
+                    System.out.println("sql_update_mod_date-----------" + sql_app_update_mod_date);
+                    pst_update_appmod_date.executeUpdate();
+
+                } catch (Exception exp23) {
+                    System.out.println("Exception in update modified date---" + exp23);
+                }
                 String getvideo_attribute_vcount = "select id from video_attribute where name='views_count'";
                 PreparedStatement pst_attribute_vcount = con.prepareStatement(getvideo_attribute_vcount);
                 ResultSet rs_attribute_vcount = pst_attribute_vcount.executeQuery();
@@ -291,7 +324,6 @@ public class AddNewCategoryWiseAction extends ActionSupport {
                         System.out.println("SQL_video_attribute_value_pd----------------------------" + SQL_video_attribute_value_pd);
                         pst_video_attribute_value_pd.executeUpdate();
                         System.out.println("added successfully in video_attribute_value for attribute_id" + pdate_ref_id);
-                        pst_video_attribute_value_pd.close();
                     } else {
                         System.out.println("Allready Video and its attributes available in video_attribute_value ");
 
@@ -302,10 +334,10 @@ public class AddNewCategoryWiseAction extends ActionSupport {
                     System.out.println("Allready in Database in youtube_video " + current_video_id);
                     System.out.println("Exception in try for insert in video_attribute_value" + exp);
                 }
-                
 
             }
 
+            con.close();
             return SUCCESS;
         } catch (Exception exp) {
             System.out.println("Exception" + exp);
@@ -314,7 +346,6 @@ public class AddNewCategoryWiseAction extends ActionSupport {
             try {
                 prest.close();
                 pst_map_insert.close();
-                
             } catch (Exception e) {
                 System.out.println("INNER EXCEPTION1" + e);
             }

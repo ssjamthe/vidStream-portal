@@ -8,7 +8,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -44,9 +43,9 @@ public class UpdateAppPropertyAction extends ActionSupport {
     
      @Override
     public String execute() throws Exception {
-    	 try{
           con = com.appify.vidstream.portal.util.DataConnection.getConnection();
-          SQl_update="update property_table set prop_name=?,prop_value=? where prop_name='"+hidden_edit_prop_name+"' ";
+         try {
+             SQl_update="update property_table set prop_name=?,prop_value=? where prop_name='"+hidden_edit_prop_name+"' ";
            pst_update =  con.prepareStatement(SQl_update);
            pst_update.setString(1, hidden_edit_prop_name);
               pst_update.setString(2, edit_prop_value);
@@ -57,14 +56,6 @@ public class UpdateAppPropertyAction extends ActionSupport {
              
              System.out.println("Exception in Try------------"+e);
              return ERROR;
-         }finally {
-             try {
-                 if (null != con) {
-                     con.close();
-                 }
-             } catch (SQLException ex) {
-                 ex.printStackTrace(System.out);
-             }
          }
          return SUCCESS;
         

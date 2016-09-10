@@ -131,15 +131,16 @@ public class UpdateExploreYouTubeVideoAction extends ActionSupport {
         } finally {
             try {
                 prest.close();
+
+                con.close();
             } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                if (null != con) {
-                    con.close();
+                try {
+                    if (null != con) {
+                        con.close();
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
             }
         }
         return SUCCESS;

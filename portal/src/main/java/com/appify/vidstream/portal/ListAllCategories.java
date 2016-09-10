@@ -97,7 +97,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
             all_video_list = new ArrayList();
 
             SQL = "SELECT id, name,image,date(date_created),date(date_modified) FROM category where categorization_id='" + categorization_ID + "' order by date(date_modified) desc;";
-            System.out.println("SQL" + SQL);
+            System.out.println("SQL-----------------------------------" + SQL);
             stmt = con.prepareStatement(SQL);
             rs = stmt.executeQuery();
 
@@ -136,11 +136,14 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
                     while (loop_test) {
                         loop_break_flag = true;
                         String SQL_check_child_cat = "SELECT child_category_id FROM parent_child_category_mappings where parent_category_id='" + val + "'";
+                        System.out.println("SQL_check_child_cat----------"+SQL_check_child_cat);
                         PreparedStatement pst_check_child_cat = con.prepareStatement(SQL_check_child_cat);
                         ResultSet rs_check_chilld_cat = pst_check_child_cat.executeQuery();
                         while (rs_check_chilld_cat.next()) {
                             int val_temp = rs_check_chilld_cat.getInt(1);
+                            
                             String SQl_get_video_count = "SELECT count(video_id) FROM youtube_video_category_mapping where category_id='" + val_temp + "' ;";
+                            System.out.println("SQl_get_video_count------------"+SQl_get_video_count);
                             PreparedStatement pst_get_video_count = con.prepareStatement(SQl_get_video_count);
                             ResultSet rs_get_video_count = pst_get_video_count.executeQuery();
                             rs_get_video_count.next();
@@ -148,6 +151,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
                             total_video_count = total_video_count + test_total_video_count;
                             val = val_temp;
                             loop_break_flag = false;
+                            
                         }
                         if (loop_break_flag == true) {
                             break;
@@ -163,7 +167,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
                         Date tempcreateDate = simpleDateFormat.parse(createDate);
                         SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-YYYY");
                         convert_create_date = outputDateFormat.format(tempcreateDate);
-                        System.out.println("Output date is = " + outputDateFormat.format(tempcreateDate));
+                        //System.out.println("Output date is = " + outputDateFormat.format(tempcreateDate));
                     } catch (ParseException ex) {
                         System.out.println("Parse Exception" + ex);
                     }
@@ -175,7 +179,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
                         Date tempmodifiedDate = simpleDateFormat.parse(modifiedDate);
                         SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-YYYY");
                         convert_modified_date = outputDateFormat.format(tempmodifiedDate);
-                        System.out.println("Output date is = " + outputDateFormat.format(tempmodifiedDate));
+                        //System.out.println("Output date is = " + outputDateFormat.format(tempmodifiedDate));
                     } catch (ParseException ex) {
                         System.out.println("Parse Exception" + ex);
                     }
@@ -215,15 +219,16 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
             try {
                 rs.close();
                 stmt.close();
+
+                con.close();
             } catch (Exception e) {
-               e.printStackTrace();
-            }
-            try {
-                if (null != con) {
-                    con.close();
+                try {
+                    if (null != con) {
+                        con.close();
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
                 }
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
             }
         }
         return SUCCESS;

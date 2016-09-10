@@ -146,6 +146,7 @@ public class AddVideoLinkAction extends ActionSupport {
 
 
                 try {
+                    SimpleDateFormat originalFormat;
                     java.util.Date date = new java.util.Date();
                     System.out.println(new Timestamp(date.getTime()));
                     Timestamp mod_date = new Timestamp(date.getTime());
@@ -330,6 +331,11 @@ public class AddVideoLinkAction extends ActionSupport {
 
 
             }
+
+
+
+
+            con.close();
             return SUCCESS;
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Exception" + e);

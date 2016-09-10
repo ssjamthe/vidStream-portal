@@ -157,15 +157,21 @@ public class MapVideoCategoryWiseAction extends ActionSupport {
             } catch (Exception exp) {
                 System.out.println("Exception:::::" + exp);
             }
+            con.close();
             return SUCCESS;
         } catch (SQLException | ClassNotFoundException exp) {
             System.out.println("Exception" + exp);
             return ERROR;
         } finally {
             try {
+
                 pst_map_insert.close();
             } catch (Exception e) {
                 System.out.println("INNER EXCEPTION1" + e);
+            }
+            try {
+            } catch (Exception e) {
+                System.out.println("INNER EXCEPTION2" + e);
             }
             try {
                 if (null != con) {

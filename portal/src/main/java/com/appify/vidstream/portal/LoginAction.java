@@ -72,7 +72,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
                 password = (String) session.getAttribute("uPass");
                 username = (String) session.getAttribute("uName");
             }
-            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
+           con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String Sql_get_user_role = "select role_id from portal_user where user_name='" + username + "'";
             PreparedStatement pst_user_role_id = con.prepareStatement(Sql_get_user_role);

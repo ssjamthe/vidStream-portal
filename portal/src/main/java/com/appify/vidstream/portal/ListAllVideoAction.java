@@ -64,9 +64,17 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
             child_category_list = new ArrayList();
             nested_list = new ArrayList();
             category_id = getCategoies_Name();
+           
+                if (category_id.equals(null)) {
+                    System.out.println("nulllll---------------------------");
+                }else{
+                
+                }
+           
+
             System.out.println("category_name inside ListAllVideoAction catid--------::::" + category_id);
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
-            String SQL_get_cate_id = "select name from category where id='" + category_id + "'";
+            String SQL_get_cate_id = "select name,id from category where id='" + category_id + "'";
             prst_categories = con.prepareStatement(SQL_get_cate_id);
             rs_categories = prst_categories.executeQuery();
             rs_categories.next();
@@ -101,7 +109,7 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
                         rs_vid_view_count.next();
                         cate_video_list.add(rs_vid_view_count.getInt(1));
                     } catch (Exception exp) {
-                        System.err.println("Exceptipn in getvid_view_count---"+exp);
+                        System.err.println("Exceptipn in getvid_view_count---" + exp);
                     }
                     String convert_you_tube_added_date = "";
                     try {
@@ -247,8 +255,9 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
 
             System.out.println("Updated nested List---::::::::::---" + nested_list);
             sessionMap.put("child_category_list", child_category_list);
-
+            con.close();
             return SUCCESS;
+
         } catch (SQLException | ClassNotFoundException | NumberFormatException e) {
             System.out.println("exception" + e);
             return ERROR;
@@ -257,16 +266,9 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
                 rs.close();
                 prst_categories.close();
                 pstmt.close();
+                con.close();
             } catch (Exception e) {
                 System.out.println("exception in finally try" + e);
-            }
-            
-            try {
-                if (null != con) {
-                    con.close();
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace(System.out);
             }
         }
 

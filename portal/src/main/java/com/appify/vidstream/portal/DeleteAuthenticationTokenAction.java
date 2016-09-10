@@ -25,6 +25,7 @@ public class DeleteAuthenticationTokenAction extends ActionSupport {
     
     public String execute() throws Exception {
            try {
+            con = null;
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
             String sql = "DELETE FROM auth_token WHERE id='" + hidden_del_auth_sr_id + "' and app_id='"+hidden_del_auth_app_id+"' and token='"+hidden_del_auth_app_auth_token+"'";
@@ -37,6 +38,11 @@ public class DeleteAuthenticationTokenAction extends ActionSupport {
             e.printStackTrace(System.out);
             return ERROR;
         } finally {
+            try {
+
+
+                con.close();
+            } catch (Exception e) {
                 try {
                     if (null != con) {
                         con.close();
@@ -44,7 +50,7 @@ public class DeleteAuthenticationTokenAction extends ActionSupport {
                 } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                 }
-            
+            }
         }
     }
 

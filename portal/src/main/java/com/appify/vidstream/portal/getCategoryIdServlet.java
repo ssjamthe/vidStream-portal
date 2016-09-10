@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @author Nileh Diore
  */
 public class getCategoryIdServlet extends HttpServlet {
-
+private  String category_name,category_id;
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -43,23 +43,43 @@ public class getCategoryIdServlet extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException {
        
     	Connection con = null;
-    	String category_id,Sql_get_category_ref_id ,category_name= "";
+    	String temp_category_id = null,Sql_get_category_ref_id ,Parent_category_ID="";
     	PreparedStatement pst_ref_category = null;
     	ResultSet rs_ref_category = null;
+        category_id="";
+   
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             category_name = request.getParameter("category_name");
+            Parent_category_ID =  request.getParameter("Parent_category_ID");
             System.out.println("category_name::::" + category_name);
+            System.out.println("Parent_category_ID--------::::" + Parent_category_ID);
 
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
-            Sql_get_category_ref_id = "select id  from category where name='" + category_name + "'";
+            Sql_get_category_ref_id = "select child_category_id  from parent_child_category_mappings where parent_category_id='" + Integer.parseInt(Parent_category_ID) + "'";
+            System.out.println("Sql_get_category_ref_id----"+Sql_get_category_ref_id);
             pst_ref_category = con.prepareStatement(Sql_get_category_ref_id);
             rs_ref_category = pst_ref_category.executeQuery();
-            rs_ref_category.next();
-           category_id = rs_ref_category.getString(1);
-            System.out.println("category_id::::"+category_id);
+            while(rs_ref_category.next()){
+              temp_category_id = rs_ref_category.getString(1);
+            System.out.println("category_id::::"+temp_category_id);
+            String check_catgory="select name from category where id='"+Integer.parseInt(temp_category_id)+"' ";
+                PreparedStatement pst_check_cat = con.prepareStatement(check_catgory);
+                ResultSet rs_check_cat = pst_check_cat.executeQuery();
+                rs_check_cat.next();
+                String result_cat=rs_check_cat.getString(1);
+                if(category_name.equals(result_cat.toString())){
+                   category_id = temp_category_id;
+                }
+                else{
+                    
+                }
+            
+            }
+            
+         
             ArrayList ar = new ArrayList();
             Map<String, String> options = new LinkedHashMap<String, String>();
 

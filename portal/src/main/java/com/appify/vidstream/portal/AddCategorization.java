@@ -173,6 +173,7 @@ public class AddCategorization extends ActionSupport implements
             }
             
             
+            con.close();
             return SUCCESS;
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Exception" + e);

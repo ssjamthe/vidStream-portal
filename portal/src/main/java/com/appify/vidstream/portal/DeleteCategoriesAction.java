@@ -16,8 +16,9 @@ import java.sql.Statement;
  * @author Nileh Diore
  */
 public class DeleteCategoriesAction extends ActionSupport {
+
     private Connection con;
-        private String hidden_category_id,hidden_category_name;
+    private String hidden_category_id, hidden_category_name;
 
     public String getHidden_category_id() {
         return hidden_category_id;
@@ -35,29 +36,36 @@ public class DeleteCategoriesAction extends ActionSupport {
         this.hidden_category_name = hidden_category_name;
     }
 
-  
-        
     public DeleteCategoriesAction() {
     }
-    
+
     public String execute() throws Exception {
-         try {
+        try {
+            con = null;
+
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
-        String CATID =getHidden_category_id();
-        String CATNAME =getHidden_category_name();
+            String CATID = getHidden_category_id();
+            String CATNAME = getHidden_category_name();
 
-
-            String sql = "DELETE FROM category WHERE id ='" + Integer.parseInt(CATID) + "' and name='"+CATNAME+"'";
-            System.out.println("sql_for delete:::"+sql);
+String SQl_Check_category_mapping="SELECT id, parent_category_id, child_category_id FROM parent_child_category_mappings where child_category_id";
+            
+            
+            String sql = "DELETE FROM category WHERE id ='" + Integer.parseInt(CATID) + "' and name='" + CATNAME + "'";
+            System.out.println("sql_for delete:::" + sql);
             Statement createStatement = con.createStatement();
             createStatement.execute(sql);
-            System.out.println("Delete Successfully Category id:::"+CATID);
+            System.out.println("Delete Successfully Category id:::" + CATID);
             return SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace(System.out);
             return ERROR;
         } finally {
+            try {
+
+
+                con.close();
+            } catch (Exception e) {
                 try {
                     if (null != con) {
                         con.close();
@@ -65,6 +73,7 @@ public class DeleteCategoriesAction extends ActionSupport {
                 } catch (SQLException ex) {
                     ex.printStackTrace(System.out);
                 }
+            }
         }
     }
 }

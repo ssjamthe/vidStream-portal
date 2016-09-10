@@ -534,7 +534,7 @@
 
                                                                     }
                                                                 });
-                                                                videoList = videoList + '<table><tr bgcolor=red;><td><input type="radio" id="video_id" name="checkbox" value="' + e.id + '" /></td> <td><li class="hyv-video-list-item"><div class="hyv-content-wrapper"><a href  class="hyv-content-link" title="' + e.snippet.title + '"><span class="title">' + e.snippet.title + '</span><span class="stat attribution">View Count:</span><span>' + e.statistics.viewCount + '</span><span class="stat attribution">Published Date:<span>' + e.snippet.publishedAt.substr(0, 10) + '</span><span class="stat attribution">by <span>' + e.snippet.channelTitle + '</span></span></a><span class="stat attribution">Category Name: <span>' + data_result_cat + '</span></span><span class="stat attribution">App Name: <span>' + data_result_appname + '</span></span></div><div class="hyv-thumb-wrapper"><a href="" class="hyv-thumb-link"><span class="hyv-simple-thumb-wrap"><img alt="' + e.snippet.title + '" src="' + e.snippet.thumbnails.default.url + '" width="120" height="90"></span></a><span class="video-time">' + YTDurationToSeconds(e.contentDetails.duration) + '</span></div></li> </td></tr></table>';
+                                                                videoList = videoList + '<table><tr bgcolor=red;><td><input type="checkbox" id="video_id" name="video_id" value="' + e.id + '" /></td> <td><li class="hyv-video-list-item"><div class="hyv-content-wrapper"><a href  class="hyv-content-link" title="' + e.snippet.title + '"><span class="title">' + e.snippet.title + '</span><span class="stat attribution">View Count:</span><span>' + e.statistics.viewCount + '</span><span class="stat attribution">Published Date:<span>' + e.snippet.publishedAt.substr(0, 10) + '</span><span class="stat attribution">by <span>' + e.snippet.channelTitle + '</span></span></a><span class="stat attribution">Category Name: <span>' + data_result_cat + '</span></span><span class="stat attribution">App Name: <span>' + data_result_appname + '</span></span></div><div class="hyv-thumb-wrapper"><a href="" class="hyv-thumb-link"><span class="hyv-simple-thumb-wrap"><img alt="' + e.snippet.title + '" src="' + e.snippet.thumbnails.default.url + '" width="120" height="90"></span></a><span class="video-time">' + YTDurationToSeconds(e.contentDetails.duration) + '</span></div></li> </td></tr></table>';
 
                                                                 //videoList = videoList + '<table><tr bgcolor=white;><td><input type="radio" id="video_id" name="video_id" value="' + e.id + '" /></td> <td><li class="hyv-video-list-item"><div class="hyv-content-wrapper"><a href  class="hyv-content-link" title="' + e.snippet.title + '"><span class="title">' + e.snippet.title + '</span><span Published Date::><span>' + e.snippet.publishedAt + '</span><span class="stat attribution">by <span>' + e.snippet.channelTitle + '</span></span></a></div><div class="hyv-thumb-wrapper"><a href="" class="hyv-thumb-link"><span class="hyv-simple-thumb-wrap"><img alt="' + e.snippet.title + '" src="' + e.snippet.thumbnails.default.url + '" width="120" height="90"></span></a><span class="stat attribution>Category Name<span>' + result + '</span><span class="video-time">' + YTDurationToSeconds(e.contentDetails.duration) + '</span></div></li> </td></tr></table>';
                                                             } else {
@@ -852,6 +852,8 @@
                                     var cb = [];
                                     var store;
                                     <%
+                                          String cateory_id = (String) session.getAttribute("cateory_id");
+                                          System.out.println("cateory_id----------------hhghg"+cateory_id);
                                         ArrayList video_data = new ArrayList();
                                         String data = "";
                                         ArrayList child_category = new ArrayList();
@@ -868,6 +870,7 @@
                                         //System.out.println("child_category  -----------------------" + child_category);
                                         System.out.println("cate_video_list  -----------------------" + video_data);
                                     %>
+                                                var edit_parent_child_id=<%=cateory_id%>
                                     <%
                                         for (int k = 0; k < video_data.size(); k++) {%>
                                     data_list.push("<%= video_data.get(k)%>");
@@ -882,6 +885,7 @@
 
                                         add_child_data();
                                     });
+                                    
                                     function add_data() {
 
                                         var j = 0;
@@ -1137,7 +1141,7 @@
                                         $("#Edit_category_Name").val(catgoryname_edit_new);
                                         $("#img1").html(img);
                                         $.ajax({
-                                            url: "${pageContext.request.contextPath}/getCategoryIdServlet?category_name=" + catgoryname_edit_new,
+                                            url: "${pageContext.request.contextPath}/getCategoryIdServlet?category_name=" + catgoryname_edit_new +"&Parent_category_ID=" +edit_parent_child_id ,
                                             type: 'POST',
                                             dataType: 'json',
                                             contentType: 'application/json',
@@ -1170,7 +1174,7 @@
 
                                         }).dialog("open");
                                         $.ajax({
-                                            url: "${pageContext.request.contextPath}/getCategoryIdServlet?category_name=" + catgoryname_edit_delete,
+                                            url: "${pageContext.request.contextPath}/getCategoryIdServlet?category_name=" + catgoryname_edit_delete +"&Parent_category_ID=" +edit_parent_child_id ,
                                             type: 'POST',
                                             dataType: 'json',
                                             contentType: 'application/json',
@@ -1619,16 +1623,13 @@ $("#Map_video_ID").val(vid);
 
                                     <script>
 
-
                                         <%
 
                                             ArrayList ncat_list = new ArrayList();
                                             String category_name = (String) session.getAttribute("category_name");
-                                            String cateory_id = (String) session.getAttribute("cateory_id");
-                                            
                                             
                                             ncat_list = (ArrayList) session.getAttribute("nested_list");
-                                            // System.out.println("Breadcrum ----------------------------------------" + ncat_list);
+                                             System.out.println("category_name -bjncjnj---------------------------------------" + category_name);
                                             String other_img_limit = (String) session.getAttribute("other_limit");
                                         %>
                                     </script>
@@ -1660,6 +1661,7 @@ $("#Map_video_ID").val(vid);
                                             }
                                         }
                                     </script>
+                                     
                                     <%@include file="HeaderAndMenu.jsp"%>
                                     <br>
                                         <br>
@@ -1975,6 +1977,7 @@ $("#Map_video_ID").val(vid);
                                                                             <td> <label>Are you sure to Delete ?</label></td>
                                                                             <td>
                                                                                 <input type="hidden" name="hidden_video_id" id="hidden_video_id"/>
+                                                                                <input type="hidden" name="hidden_video_category_id" id="hidden_video_category_id" value="<%=cateory_id%>"/>
                                                                             </td>
 
                                                                         </tr> 

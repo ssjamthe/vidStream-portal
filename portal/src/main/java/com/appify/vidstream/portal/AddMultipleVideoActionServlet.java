@@ -29,6 +29,16 @@ import javax.servlet.http.HttpSession;
  */
 public class AddMultipleVideoActionServlet extends HttpServlet {
 
+    private static final String SUCCESS = "success";
+    private final static String FAILURE = "failure";
+    private Connection con, connection;
+    private String sql_app_catzion, Application_Name, Categorization_Name, Category_Name, vidlist;
+    private PreparedStatement stmt_app_catzion, stmt_system_integrator_name;
+    private ResultSet rs_app_catzion, rs_system_integrator_name;
+    private List list_device_name;
+    private String App_Id, categorization_id;
+    private String explore_video_view_count,Explore_video_id,explore_video_title,explore_video_published_date,ExpYTupdate_Application_Name,ExpYTube_Categorization;
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -41,13 +51,21 @@ public class AddMultipleVideoActionServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-    	String explore_video_view_count,Explore_video_id,explore_video_title,ExpYTupdate_Application_Name,ExpYTube_Categorization;
+        list_device_name = new ArrayList();
+        con = null;
+        sql_app_catzion = "";
+        stmt_app_catzion = null;
+        rs_app_catzion = null;
+
+        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
        
            
             Explore_video_id =request.getParameter("Explore_video_id");
              explore_video_title =request.getParameter("explore_video_title");
               explore_video_view_count =request.getParameter("explore_video_view_count");
+              explore_video_published_date =request.getParameter("explore_video_published_date");
               ExpYTupdate_Application_Name =request.getParameter("explore_video_published_date");
               ExpYTube_Categorization =request.getParameter("ExpYTube_Categorization");
               

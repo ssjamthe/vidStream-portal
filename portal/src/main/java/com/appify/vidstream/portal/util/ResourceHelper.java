@@ -1,15 +1,21 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.appify.vidstream.portal.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
 import org.apache.log4j.Logger;
 
+/**
+ *
+ * 
+ */
 public class ResourceHelper {
-	
-	private static String resourceName=PortalConstants.PROPERTIES_URL;
+    private static String resourceName=PortalConstants.PROPERTIES_URL;
 	private static Properties resource;
 	private static Boolean startedLoad=false;
 	private static Logger log=Logger.getLogger(ResourceHelper.class.getName());
@@ -73,6 +79,4 @@ public class ResourceHelper {
 	public static void setResourceName(String resourceName) {
 		ResourceHelper.resourceName = resourceName;
 	}
-	 
-
 }

@@ -1,15 +1,21 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.appify.vidstream.portal.util;
 
 import java.util.Properties;
 
+
 import javax.sql.DataSource;
-
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
-
+import org.apache.commons.dbcp2.BasicDataSource;
+/**
+ *
+ * @author Nileh Diore
+ */
 public class DataSourceFactory {
-
-	 private static DataSource dataSource;
+     private static DataSource dataSource;
 	 private static Logger log=Logger.getLogger(DataSourceFactory.class.getName());
 	 
 	 /**
@@ -26,6 +32,7 @@ public class DataSourceFactory {
 		public static synchronized void loadDataSource() {
 			if(dataSource==null){
 				log.debug("DataSource is getting initialized...");
+                                System.out.println("Inside DataSource Factory-----");
 				BasicDataSource ds=new BasicDataSource();
 				Properties conf=ResourceHelper.getResource();
 				ds.setUrl(conf.getProperty("url"));
@@ -46,5 +53,4 @@ public class DataSourceFactory {
 		public static void setDataSource(DataSource dataSource) {
 			DataSourceFactory.dataSource = dataSource;
 		}
-
 }

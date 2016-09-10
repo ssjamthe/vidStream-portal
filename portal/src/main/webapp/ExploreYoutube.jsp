@@ -1106,7 +1106,7 @@
                                                                 return $("<button>").attr("type", "button").text("Delete").addClass("btn btn-primary")
                                                                         .on("click", function() {
 
-                                                                    deleted_ExploreYoutubeDeatils(item.Video_ID);
+                                                                    deleted_ExploreYoutubeDeatils(item.Video_ID,item.Application_Name,item.Category_Name);
                                                                 });
                                                             },
                                                             align: "center",
@@ -1163,7 +1163,7 @@
 
                                             }
 
-                                            function deleted_ExploreYoutubeDeatils(id) {
+                                            function deleted_ExploreYoutubeDeatils(id,appname,categoryname) {
 
 
                                                 $("#dialog_delete_ExploreYoutubeDeatils").dialog({
@@ -1175,6 +1175,8 @@
 
                                                 }).dialog("open");
                                                 $("#hidden_explorevideoID").val(id);
+                                                 $("#hidden_explorevideoCategoryID").val(categoryname);
+                                                  $("#hidden_explorevideoAppID").val(appname);
 
                                             }
 
@@ -1347,6 +1349,7 @@
                                                     url: "${pageContext.request.contextPath}/getAppTopLevelcategoryServlet?categorization_id=" + $('select[name=ExpYTube_Categorization] option:selected').val(),
                                                     success: function(data) {
                                                         $("#explore_video_category_wise").html(data);
+                                                        
 
                                                     }
                                                 });
@@ -1419,6 +1422,7 @@
 
                                                             $('select').on('change', function() {
                                                                 add1(this.value);
+                                                                
                                                                 $('#last_child_category').val(this.value);
                                                             });
 
@@ -1471,6 +1475,7 @@
                                                             $('select').on('change', function() {
 
                                                                 add1(this.value);
+                                                              
                                                                 $('#Exp_last_child_category').val(this.value);
                                                             })
 
@@ -1798,6 +1803,8 @@
                                                                                     <td> <label>Are you sure to Delete ?</label></td>
                                                                                     <td>
                                                                                         <input type="hidden" name="hidden_explorevideoID" id="hidden_explorevideoID"/>
+                                                                                        <input type="hidden" name="hidden_explorevideoAppID" id="hidden_explorevideoAppID"/>
+                                                                                        <input type="hidden" name="hidden_explorevideoCategoryID" id="hidden_explorevideoCategoryID"/>
                                                                                     </td>
 
                                                                                 </tr> 
