@@ -79,6 +79,15 @@ public class MapVideoCategoryWiseAction extends ActionSupport {
             System.out.println("AppID" + AppID);
             System.out.println("Map_catogory" + Map_catogory);
             System.out.println("last_child_category" + last_child_category);
+            try{
+          if(last_child_category.equals("")){
+            last_child_category =Map_catogory;
+            }else{
+          }
+            }catch(Exception e1){
+                System.out.println("Exception in check whether last_child_category is null--- "+e1);
+            }
+          
 
 
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();

@@ -1899,7 +1899,7 @@ $("#Map_video_ID").val(vid);
                                                         <div id="dialog_edit_category" style="display: none; font-size: 9pt; " align = "center">
                                                             <br>
 
-                                                                <form action="update_categories" method="post" enctype="multipart/form-data"> 
+                                                                <form action="update_child_categories" method="post" enctype="multipart/form-data"> 
                                                                     <table class="table table-striped">
 
                                                                         <tr class="info">
@@ -1948,7 +1948,7 @@ $("#Map_video_ID").val(vid);
                                                         <div id="dialog_delete_Category" style="display: none; font-size: 9pt;" align = "center">
                                                             <br>
 
-                                                                <form action="delete_categories"  method="post"> 
+                                                                <form action="delete_child_categories"  method="post"> 
                                                                     <table class="table table-striped">
 
                                                                         <tr>

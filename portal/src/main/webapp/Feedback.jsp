@@ -704,9 +704,10 @@
             <%
      ArrayList d = new ArrayList();
      d = (ArrayList) session.getAttribute("list_all_user_feedback");
+
      for (int i = 0; i < d.size(); i++) {%>
             data_list.push("<%= d.get(i)%>");
-         
+      
             <%}%>
 
 
@@ -724,9 +725,11 @@
                         currentlongindex = 0;
                         feedback_data = data;
                         for (var i = 0; i < feedback_data.length; i++) {
+                       
                             data_list.push(feedback_data[currentlongindex].app_id);
                             data_list.push(feedback_data[currentlongindex].app_name);
                             data_list.push(feedback_data[currentlongindex].device_id);
+                           
                             data_list.push(feedback_data[currentlongindex].user_comment);
                             data_list.push(feedback_data[currentlongindex].comment_date);
 
@@ -742,6 +745,7 @@
             });
             function add_data() {
                 var j = 0;
+         
                 for (var i = 0; i < data_list.length / 5; i++) {
                     db.clients1 =
                             {
@@ -749,7 +753,7 @@
                                 "App_Name": data_list[++j],
                                 "Device_ID": data_list[++j],
                                 "User_Comment": data_list[++j],
-                                "Comment_Date": data_list[++j],
+                                "Comment_Date": data_list[++j]
                             };
                     j++;
                     b.push(db.clients1);

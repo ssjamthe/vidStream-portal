@@ -97,7 +97,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
             all_video_list = new ArrayList();
 
             SQL = "SELECT id, name,image,date(date_created),date(date_modified) FROM category where categorization_id='" + categorization_ID + "' order by date(date_modified) desc;";
-            System.out.println("SQL-----------------------------------" + SQL);
+           // System.out.println("SQL-----------------------------------" + SQL);
             stmt = con.prepareStatement(SQL);
             rs = stmt.executeQuery();
 
@@ -210,6 +210,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
             sessionMap.put("nested_categorization", test);
             sessionMap.put("all_video_list", all_video_list);
             sessionMap.put("categories_list", categories_list);
+          
             sessionMap.put("categorization_name", categorization_name);
             sessionMap.put("categorization_ID", categorization_ID);
         } catch (Exception e) {

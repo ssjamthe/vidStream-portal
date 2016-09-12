@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
@@ -50,14 +52,24 @@ public class PreListAllFeedbackAction extends ActionSupport implements SessionAw
             rs_list_user_feedback = pst_list_user_feedback.executeQuery();
             while (rs_list_user_feedback.next()) {
                 list_all_user_feedback.add(rs_list_user_feedback.getInt(1));
-                
-                String SQL_getAPP_NAME="select name from application where id='"+rs_list_user_feedback.getInt(1)+"'";
+
+                String SQL_getAPP_NAME = "select name from application where id='" + rs_list_user_feedback.getInt(1) + "'";
                 PreparedStatement pst_getAPP_NAME = con.prepareStatement(SQL_getAPP_NAME);
                 ResultSet rs_app_name = pst_getAPP_NAME.executeQuery();
                 rs_app_name.next();
-                 list_all_user_feedback.add(rs_app_name.getString(1));
+                list_all_user_feedback.add(rs_app_name.getString(1));
                 list_all_user_feedback.add(rs_list_user_feedback.getString(2));
-                list_all_user_feedback.add(rs_list_user_feedback.getString(3));
+                String res_comment="";
+                try {
+                    Pattern ptn = Pattern.compile("\\s+");
+                    String getcomment =rs_list_user_feedback.getString(3).toString();
+                    Matcher mtch = ptn.matcher(getcomment);
+                    res_comment = mtch.replaceAll(" ");
+                    // System.out.println("res_comment---------" + res_comment);
+                } catch (Exception expen2) {
+                    System.err.println("Exception in remove speces in user comment----"+expen2);
+                }
+                list_all_user_feedback.add(res_comment);
 
 
                 try {
@@ -72,7 +84,7 @@ public class PreListAllFeedbackAction extends ActionSupport implements SessionAw
                 list_all_user_feedback.add(convert_comment_Date);
             }
             sessionMap.put("list_all_user_feedback", list_all_user_feedback);
-            System.out.println("in action classs---"+list_all_user_feedback);
+            System.out.println("in action classs---" + list_all_user_feedback);
 
         } catch (Exception exp) {
 

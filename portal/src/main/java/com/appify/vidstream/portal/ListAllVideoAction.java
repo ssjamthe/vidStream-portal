@@ -95,7 +95,7 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
             pstmt = con.prepareStatement(SQl_getvideo_id);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                SQl_list_videos = "select id,name,date(date_added) from youtube_video where id='" + rs.getString(1) + "'";
+                SQl_list_videos = "select id,name,date(date_added) from youtube_video where id='" + rs.getString(1) + "' order by date_added desc";
                 PreparedStatement prepareStatement = con.prepareStatement(SQl_list_videos);
                 ResultSet executeQuery = prepareStatement.executeQuery();
                 while (executeQuery.next()) {
@@ -109,6 +109,7 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
                         rs_vid_view_count.next();
                         cate_video_list.add(rs_vid_view_count.getInt(1));
                     } catch (Exception exp) {
+                        cate_video_list.add("0");
                         System.err.println("Exceptipn in getvid_view_count---" + exp);
                     }
                     String convert_you_tube_added_date = "";

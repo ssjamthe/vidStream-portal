@@ -705,7 +705,7 @@
                 ArrayList d = new ArrayList();
                 ArrayList category_list = new ArrayList();
                 String app_name_new = (String) session.getAttribute("App_Name");
-                  String app = (String) session.getAttribute("app_id");
+                String app = (String) session.getAttribute("app_id");
                 String Categorization_Name = (String) session.getAttribute("categorization_name");
                 String cat_id = (String) session.getAttribute("categorization_ID");
                 category_list = (ArrayList) session.getAttribute("list_category");
@@ -727,13 +727,15 @@
             function add_data() {
                 var j = 0;
 
-                for (var i = 0; i < data_list.length / 6; i++) {
+                for (var i = 0; i < data_list.length / 7; i++) {
 
                     var sy = j;
                     var sbs = ++j;
-                    var catid=++j;;
+                    var catid = ++j;
+                    ;
                     db.clients1 =
                             {"App_id": data_list[sy],
+                                "Cat_Id": data_list[catid],
                                 "Categories": data_list[sbs].link("listvideos?categoies_Name=" + data_list[catid] + ""),
                                 "Image": ('<center><img class="circular"  height="70px" width="100px" src="data:image;base64,' + data_list[++j] + '" /></center>'),
                                 "No_Of_Videos": data_list[++j],
@@ -764,7 +766,8 @@
                         return "The client \"" + item.Name + "\" will be removed. Are you sure?";
                     },
                     fields: [
-                        {name: "App_id", type: "text", width: 40, align: "center", title: "App id"},
+                        {name: "App_id", type: "text", width: 40, align: "center", title: "App ID"},
+                        {name: "Cat_Id", type: "text", width: 40, align: "center", title: "CAT ID"},
                         {name: "Categories", type: "text", width: 90, align: "center", title: "Categories"},
                         {name: "Image", type: "text", width: 100, align: "center", title: "Image"},
                         {name: "No_Of_Videos", type: "text", width: 90, align: "center", title: "No Of Videos"},
@@ -774,7 +777,7 @@
 
                                 return $("<button>").attr("type", "button").text("Edit").addClass("btn btn-primary")
                                         .on("click", function() {
-                                    EditDetailsCategory(item.App_ID, item.Categories, item.Image);
+                                    EditDetailsCategory(item.App_ID, item.Categories, item.Image, item.Cat_Id);
                                 });
                             },
                             align: "center",
@@ -785,7 +788,7 @@
 
                                 return $("<button>").attr("type", "button").text("Delete").addClass("btn btn-primary")
                                         .on("click", function() {
-                                    deleted_Category(item.App_ID, item.Categories);
+                                    deleted_Category(item.App_ID, item.Categories,item.Cat_Id);
                                 });
                             },
                             align: "center",
@@ -825,7 +828,7 @@
 
             }
 
-            function EditDetailsCategory(appid, name, img) {
+            function EditDetailsCategory(appid, name, img, CATid) {
 
                 var catgoryname_edit = name.substring(name.indexOf('</') + 1, name.indexOf('">'));
                 var catgoryname_edit_new = catgoryname_edit.substring(catgoryname_edit.indexOf('>') + 1, catgoryname_edit.indexOf('<'));
@@ -842,27 +845,14 @@
 
                 $("#Edit_category_Name").val(catgoryname_edit_new);
                 $("#img1").html(img);
-                $.ajax({
-                    url: "${pageContext.request.contextPath}/getCategoryIdServlet?category_name=" + catgoryname_edit_new,
-                    type: 'POST',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    mimeType: 'application/json',
-                    success: function(data) {
-                        category_id = data[0].category_id.toString();
-                        $("#Edit_category_ID_NEW").val(category_id);
-                        $("#hidden_Edit_category_ID_NEW").val(category_id);
-                    },
-                    error: function(data, status, er) {
-
-                    }
-                });
+                $("#Edit_category_ID_NEW").val(CATid);
+                $("#hidden_Edit_category_ID_NEW").val(CATid);
 
                 document.getElementById("rst").innerHTML = "";
 
             }
 
-            function deleted_Category(id, name) {
+            function deleted_Category(id, name,CATID_DEL) {
                 var catgoryname_edit = name.substring(name.indexOf('</') + 1, name.indexOf('">'));
                 var catgoryname_edit_new = catgoryname_edit.substring(catgoryname_edit.indexOf('>') + 1, catgoryname_edit.indexOf('<'));
 
@@ -875,21 +865,7 @@
                     height: 150
 
                 }).dialog("open");
-                $.ajax({
-                    url: "${pageContext.request.contextPath}/getCategoryIdServlet?category_name=" + catgoryname_edit_new,
-                    type: 'POST',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    mimeType: 'application/json',
-                    success: function(data) {
-                        categoryID = data[0].category_id.toString();
-                        $("#hidden_category_id").val(categoryID);
-                    },
-                    error: function(data, status, er) {
-
-                    }
-                });
-
+                  $("#hidden_category_id").val(CATID_DEL);
                 $("#hidden_category_name").val(catgoryname_edit_new);
             }
 
@@ -959,34 +935,34 @@
             String other_img_limit = (String) session.getAttribute("other_limit");
         %>
         <script>
-     var otherlimit =<%=other_img_limit%>;
-     function checkEditsize() {
+            var otherlimit =<%=other_img_limit%>;
+            function checkEditsize() {
 
 
-         var pic2 = document.getElementById("userImage");
+                var pic2 = document.getElementById("userImage");
 
-         if (pic2.files[0].size >= (otherlimit * 1024)) {
-             alert('Images Size Should Be Less Than  ' + otherlimit + 'KB');
-             return false;
-         }
-         else {
+                if (pic2.files[0].size >= (otherlimit * 1024)) {
+                    alert('Images Size Should Be Less Than  ' + otherlimit + 'KB');
+                    return false;
+                }
+                else {
 
-         }
-     }
+                }
+            }
 
 
 
-     function checksize() {
-         var pic = document.getElementById("fileUpload");
+            function checksize() {
+                var pic = document.getElementById("fileUpload");
 
-         if (pic.files[0].size >= 1000020) {
-             alert('Images Size Should Be Less Than ' + otherlimit + 'KB');
-             return false;
-         }
-         else {
+                if (pic.files[0].size >= 1000020) {
+                    alert('Images Size Should Be Less Than ' + otherlimit + 'KB');
+                    return false;
+                }
+                else {
 
-         }
-     }
+                }
+            }
         </script>
         <%@include file="HeaderAndMenu.jsp"%>
         <br>

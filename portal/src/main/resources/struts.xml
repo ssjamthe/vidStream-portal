@@ -105,10 +105,25 @@
                 </param>
             </interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">PreListCategories.jsp</result>  
+            <result name="error">/error.jsp</result>
+        </action>
+          <action name="update_child_categories" class="com.appify.vidstream.portal.UpdateCategoriesAction">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1000020</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success">PreListVideoAction.jsp</result>  
             <result name="error">/error.jsp</result>
         </action>
+        
         <action name="delete_categories" class="com.appify.vidstream.portal.DeleteCategoriesAction">  
+            <result name="success">PreListCategories.jsp</result>   
+        </action>
+          <action name="delete_child_categories" class="com.appify.vidstream.portal.DeleteCategoriesAction">  
             <result name="success">PreListVideoAction.jsp</result>   
         </action>
         
