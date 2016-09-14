@@ -4,6 +4,7 @@
  */
 package com.appify.vidstream.portal;
 
+import static com.appify.vidstream.portal.AdminPrtalConstant.YOUTUBE_API_KEY;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
@@ -29,6 +30,8 @@ public class ExploreYoutubeAction extends ActionSupport implements SessionAware 
     ResultSet rs_video_list, rs_category_wise_video_list;
     private SessionMap<String, Object> sessionMap;
     private List video_id_list, category_idandname_list, Category_Wise_Video_List;
+    private String YT_API;
+   
     HttpSession session = ServletActionContext.getRequest().getSession(false);
 
     public ExploreYoutubeAction() {
@@ -38,6 +41,8 @@ public class ExploreYoutubeAction extends ActionSupport implements SessionAware 
     public String execute() throws Exception {
         try {
             video_id_list = new ArrayList();
+           
+            System.out.println("YOUTUBE_API_KEY----------------"+YOUTUBE_API_KEY);
             Category_Wise_Video_List = new ArrayList();
             category_idandname_list = new ArrayList();
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
@@ -179,6 +184,8 @@ public class ExploreYoutubeAction extends ActionSupport implements SessionAware 
             sessionMap.put("Category_Wise_Video_List", final_arraylist_exp);
             sessionMap.put("video_id_list", video_id_list);
             sessionMap.put("category_idandname_list", category_idandname_list);
+            
+            
             return SUCCESS;
         } catch (Exception exp) {
             System.out.println("Exception in try ExploreYoutubeAction:::" + exp);

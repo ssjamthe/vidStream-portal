@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,7 @@ public class PreListAllFeedbackAction extends ActionSupport implements SessionAw
             Sql_List_user_feedback = "SELECT app_id, device_id, user_comment, comment_date FROM feedback order by comment_date desc;";
             pst_list_user_feedback = con.prepareStatement(Sql_List_user_feedback);
             rs_list_user_feedback = pst_list_user_feedback.executeQuery();
+           int c=0;
             while (rs_list_user_feedback.next()) {
                 list_all_user_feedback.add(rs_list_user_feedback.getInt(1));
 
@@ -61,15 +63,26 @@ public class PreListAllFeedbackAction extends ActionSupport implements SessionAw
                 list_all_user_feedback.add(rs_list_user_feedback.getString(2));
                 String res_comment="";
                 try {
-                    Pattern ptn = Pattern.compile("\\s+");
+                  //  Pattern ptn = Pattern.compile("\\s+");
                     String getcomment =rs_list_user_feedback.getString(3).toString();
-                    Matcher mtch = ptn.matcher(getcomment);
-                    res_comment = mtch.replaceAll(" ");
-                    // System.out.println("res_comment---------" + res_comment);
+                       System.out.println("getcomment---------" + getcomment);
+                    /*Matcher mtch = ptn.matcher(getcomment);
+                    res_comment = mtch.replaceAll(" ");*/
+                  /*  String[] a=getcomment.split(" ");
+                     //System.out.println("a[]---------" + a[c]);
+                     if( a.length > 5){
+                          System.out.println("a[0]---------" + a[0]);
+                       System.out.println("a[1]---------" + a[1]);
+                      System.out.println("a[2]---------" + a[2]);
+                       System.out.println("a[3]---------" + a[3]);
+                        System.out.println("a[4]---------" + a[4]); System.out.println("a[5]---------" + a[5]);
+                        
+                     }*/
+                   list_all_user_feedback.add(getcomment);
                 } catch (Exception expen2) {
                     System.err.println("Exception in remove speces in user comment----"+expen2);
                 }
-                list_all_user_feedback.add(res_comment);
+               // list_all_user_feedback.add(res_comment);
 
 
                 try {

@@ -702,13 +702,20 @@
             var currentlongindex;
 
             <%
-     ArrayList d = new ArrayList();
-     d = (ArrayList) session.getAttribute("list_all_user_feedback");
+                ArrayList d = new ArrayList();
+                d = (ArrayList) session.getAttribute("list_all_user_feedback");
+                String s = d.get(3).toString().trim();
+                for (int i = 0; i < d.size(); i++) {
+                    if (i % 3 == 0) {
+                        String s1 = d.get(i).toString();
+                        String s2 = s1.replace("\n", "+");
 
-     for (int i = 0; i < d.size(); i++) {%>
+            %>    data_list.push("<%= s2%>");<% } else {%>
             data_list.push("<%= d.get(i)%>");
-      
-            <%}%>
+
+            <%
+                    }
+                }%>
 
 
             function get_feedback_details_app_wise() {
@@ -725,11 +732,11 @@
                         currentlongindex = 0;
                         feedback_data = data;
                         for (var i = 0; i < feedback_data.length; i++) {
-                       
+
                             data_list.push(feedback_data[currentlongindex].app_id);
                             data_list.push(feedback_data[currentlongindex].app_name);
                             data_list.push(feedback_data[currentlongindex].device_id);
-                           
+
                             data_list.push(feedback_data[currentlongindex].user_comment);
                             data_list.push(feedback_data[currentlongindex].comment_date);
 
@@ -745,17 +752,34 @@
             });
             function add_data() {
                 var j = 0;
-         
+                var n = "\n";
+                var plus = "+";
+                var specialChars = /[+]/gi;
                 for (var i = 0; i < data_list.length / 5; i++) {
+                    var kt = j;
+                    var app_name = ++j;
+                    var app_name1 = ++j;
+                    var app_name2 = ++j;
+                    var app_name3 = ++j;
+                    var str = data_list[app_name2];
+                    var t = str.includes("+");
+                    var r;
+                    var r_plus;
+                    if (t) {
+                        var allFoundCharacters = str.match(specialChars);
+                        r = n.repeat(allFoundCharacters.length);
+                        r_plus = plus.repeat(allFoundCharacters.length);
+                    }
                     db.clients1 =
                             {
-                                "App_ID": data_list[j],
-                                "App_Name": data_list[++j],
-                                "Device_ID": data_list[++j],
-                                "User_Comment": data_list[++j],
-                                "Comment_Date": data_list[++j]
+                                "App_ID": data_list[kt],
+                                "App_Name": data_list[app_name],
+                                "Device_ID": data_list[app_name1],
+                                "User_Comment": str.replace(r_plus, r),
+                                "Comment_Date": data_list[app_name3]
                             };
                     j++;
+
                     b.push(db.clients1);
                     add(b);
 
@@ -899,8 +923,8 @@
         <%
             ArrayList listallapp = new ArrayList();
             listallapp = (ArrayList) session.getAttribute("list_app_name");
-             ArrayList dest = (ArrayList) session.getAttribute("list_all_user_feedback");
-           
+            ArrayList dest = (ArrayList) session.getAttribute("list_all_user_feedback");
+
         %>
 
         <%@include file="HeaderAndMenu.jsp"%>

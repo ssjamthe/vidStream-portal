@@ -99,7 +99,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
             rs_login = pstmt_login.executeQuery();
             rs_login.next();
             Check_password = rs_login.getString(1).toString();
-            System.out.println("Check_password---------------->>>>>>>>>>>" + Check_password);
+           // System.out.println("Check_password---------------->>>>>>>>>>>" + Check_password);
             if (Check_password.equals(password)) {
                 String Sql_portal_user_role = "select distinct name ,id from portal_user_role order by id asc";
                 System.out.println("Sql_portal_user_role:::" + Sql_portal_user_role);
@@ -199,7 +199,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
                         Date tempcreateDate = simpleDateFormat.parse(createDate);
                         SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-YYYY");
                         convert_create_date = outputDateFormat.format(tempcreateDate);
-                        System.out.println("Output date is = " + outputDateFormat.format(tempcreateDate));
+                       // System.out.println("Output date is = " + outputDateFormat.format(tempcreateDate));
                     } catch (ParseException ex) {
                         System.out.println("Parse Exception");
                     }
@@ -211,7 +211,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
                         Date tempmodifiedDate = simpleDateFormat.parse(modifiedDate);
                         SimpleDateFormat outputDateFormat = new SimpleDateFormat("dd-MM-YYYY");
                         convert_modified_date = outputDateFormat.format(tempmodifiedDate);
-                        System.out.println("Output date is = " + outputDateFormat.format(tempmodifiedDate));
+                        //System.out.println("Output date is = " + outputDateFormat.format(tempmodifiedDate));
                     } catch (ParseException ex) {
                         System.out.println("Parse Exception");
                     }
@@ -233,7 +233,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
                     ResultSet rs_bg_img_size_lim = pst_bgimgsizelimit.executeQuery();
                     rs_bg_img_size_lim.next();
                     String Bg_prop_value = rs_bg_img_size_lim.getString(1);
-                    System.out.println("total_bg_img_limit---------" + Bg_prop_value);
+                   // System.out.println("total_bg_img_limit---------" + Bg_prop_value);
                     numberOnly = Bg_prop_value.replaceAll("[^0-9]", "");
                     //System.out.println("total_bg_img_limit---------"+numberOnly);
 
@@ -308,7 +308,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     @Override
     public void validate() {
       
-        System.out.println("username---" + username);
+        //System.out.println("username---" + username);
         PreparedStatement pst_userc = null;
           PreparedStatement pst_check= null;
         ResultSet rs_check_userc = null;

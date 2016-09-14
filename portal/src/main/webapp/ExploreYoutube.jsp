@@ -1,6 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="java.util.ArrayList"%>
+<%@ page import="com.appify.vidstream.portal.AdminPrtalConstant" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
 
@@ -551,7 +552,10 @@
                                         <script type="text/javascript">
                                             var VideoId_List = [];
                                             var tk = 1;
-                                            var ytkey = 'AIzaSyAEBs_3Va1D1edITLw8hND9IJAcnh50Lx4';
+                                           var ytkey = '<%= AdminPrtalConstant.YOUTUBE_API_KEY %>';
+                                           
+                                           
+                                            
                                             <%
                                                 ArrayList videoid_list = new ArrayList();
 
@@ -798,13 +802,13 @@
                                             function getvideodata(video_id) {
 
                                                 var video_id1 = video_id;
-                                                var yt_new_key = "AIzaSyAEBs_3Va1D1edITLw8hND9IJAcnh50Lx4";
+                                                
                                                 $.ajax({
                                                     cache: false,
                                                     dataType: 'json',
                                                     type: 'GET',
                                                     timeout: 5000,
-                                                    url: 'https://www.googleapis.com/youtube/v3/videos?id=' + video_id1 + '&key=' + yt_new_key + '&fields=items(id,snippet(publishedAt,channelId,title,categoryId),statistics)&part=snippet,statistics',
+                                                    url: 'https://www.googleapis.com/youtube/v3/videos?id=' + video_id1 + '&key=' + ytkey + '&fields=items(id,snippet(publishedAt,channelId,title,categoryId),statistics)&part=snippet,statistics',
                                                     success: function(data) {
                                                         var items = data.items;
                                                         var i = 0;
@@ -841,13 +845,13 @@
                                                 var video_id1 = video_idNEW;
                                                 var catName = category_name;
                                                 var Appname = application_name;
-                                                var yt_new_key = "AIzaSyAEBs_3Va1D1edITLw8hND9IJAcnh50Lx4";
+                                               
                                                 $.ajax({
                                                     cache: false,
                                                     dataType: 'json',
                                                     type: 'GET',
                                                     timeout: 5000,
-                                                    url: 'https://www.googleapis.com/youtube/v3/videos?id=' + video_idNEW + '&key=' + yt_new_key + '&fields=items(id,snippet(publishedAt,channelId,title,categoryId),statistics)&part=snippet,statistics',
+                                                    url: 'https://www.googleapis.com/youtube/v3/videos?id=' + video_idNEW + '&key=' + ytkey + '&fields=items(id,snippet(publishedAt,channelId,title,categoryId),statistics)&part=snippet,statistics',
                                                     success: function(data) {
                                                         var items = data.items;
                                                         var i = 0;
@@ -1512,7 +1516,7 @@
                                                         <div class="breadcrumb flat">
                                                             <a href="login">Home</a>
                                                             <a href="exploreutubeaction" class="active" >Explore Youtube</a>
-
+                                                            
                                                         </div>
                                                         <br>
                                                             <br>

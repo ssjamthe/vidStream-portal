@@ -192,7 +192,8 @@ public class AddNewCategoryWiseAction extends ActionSupport {
                 java.util.Date date = new java.util.Date();
                 System.out.println(new Timestamp(date.getTime()));
                 Timestamp mod_date = new Timestamp(date.getTime());
-
+                boolean loop_test = true;
+                boolean loop_break_flag = true;
                 try {
                     String sql_update_mod_date = "UPDATE category set date_modified=?  where id='" + cate + "'";
 
@@ -200,6 +201,38 @@ public class AddNewCategoryWiseAction extends ActionSupport {
                     pst_update_mod_date.setTimestamp(1, mod_date);
                     System.out.println("sql_update_mod_date-----------" + sql_update_mod_date);
                     pst_update_mod_date.executeUpdate();
+
+                    int check_child_cat = 0;
+                    check_child_cat = cate;
+
+                    while (loop_test) {
+
+                        String SQL_check_parent = "SELECT parent_category_id FROM parent_child_category_mappings where child_category_id='" + check_child_cat + "'";
+                        PreparedStatement pst_check_parent = con.prepareStatement(SQL_check_parent);
+                        ResultSet rs_check_parent = pst_check_parent.executeQuery();
+                        if (!rs_check_parent.next()) {
+                            loop_break_flag = false;
+                            loop_test = false;
+                        } else {
+                            int get_parent_cat_id = rs_check_parent.getInt(1);
+                            check_child_cat = get_parent_cat_id;
+                            System.out.println("parent_category_id-------------"+check_child_cat);
+                            String sql_update_mod_date_parent_cat = "UPDATE category set date_modified=?  where id='" + get_parent_cat_id + "'";
+   System.out.println("sql_update_mod_date_parent_cat-------------"+sql_update_mod_date_parent_cat);
+                            PreparedStatement pst_update_mod_date_parent_cat = con.prepareStatement(sql_update_mod_date_parent_cat);
+                            pst_update_mod_date_parent_cat.setTimestamp(1, mod_date);
+                            pst_update_mod_date_parent_cat.executeUpdate();
+
+                        }
+
+
+                    }
+                    if (loop_break_flag == true) {
+                        break;
+                    }
+
+
+
 
                     String SQL_get_CATID = "SELECT categorization_id FROM category where id='" + cate + "' ";
                     PreparedStatement pst_GETCATID = con.prepareStatement(SQL_get_CATID);

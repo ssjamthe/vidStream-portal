@@ -131,6 +131,8 @@ public class ListAllCategorizationAction extends ActionSupport implements Sessio
 
                             while (rs_video.next()) {
                                 counter_video = counter_video + Integer.parseInt(rs_video.getString(1));
+                                  System.out.println("Integer.parseInt(rs_video.getString(1))------"+Integer.parseInt(rs_video.getString(1)));
+                                System.out.println("counter_video------"+counter_video);
 
                                 videoflag = false;
                             }

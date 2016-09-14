@@ -4,6 +4,7 @@
     Author     : Nileh Diore
 --%>
 
+<%@page import="com.appify.vidstream.portal.AdminPrtalConstant"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -422,7 +423,8 @@
 
                                 <script>
                                     var VideoId_List = [];
-                                    var ytkey = 'AIzaSyAEBs_3Va1D1edITLw8hND9IJAcnh50Lx4';
+                                   
+                                     var ytkey = '<%= AdminPrtalConstant.YOUTUBE_API_KEY %>';
                                     <%
                                         ArrayList videoid_list = new ArrayList();
 
@@ -659,13 +661,12 @@
                                         function getvideodata(video_id) {
 
                                             var video_id1 = video_id;
-                                            var yt_new_key = "AIzaSyAEBs_3Va1D1edITLw8hND9IJAcnh50Lx4";
                                             $.ajax({
                                                 cache: false,
                                                 dataType: 'json',
                                                 type: 'GET',
                                                 timeout: 5000,
-                                                url: 'https://www.googleapis.com/youtube/v3/videos?id=' + video_id1 + '&key=' + yt_new_key + '&fields=items(id,snippet(publishedAt,channelId,title,categoryId),statistics)&part=snippet,statistics',
+                                                url: 'https://www.googleapis.com/youtube/v3/videos?id=' + video_id1 + '&key=' + ytkey + '&fields=items(id,snippet(publishedAt,channelId,title,categoryId),statistics)&part=snippet,statistics',
                                                 success: function(data) {
                                                     var items = data.items;
                                                     var i = 0;

@@ -67,6 +67,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
     public String execute() throws Exception {
         try {
             previous_video_count = 0;
+            int middle_vid_count = 0;
             val = 0;
             total_video_count = 0;
             child_category_list = new <Integer> ArrayList();
@@ -97,7 +98,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
             all_video_list = new ArrayList();
 
             SQL = "SELECT id, name,image,date(date_created),date(date_modified) FROM category where categorization_id='" + categorization_ID + "' order by date(date_modified) desc;";
-           // System.out.println("SQL-----------------------------------" + SQL);
+            // System.out.println("SQL-----------------------------------" + SQL);
             stmt = con.prepareStatement(SQL);
             rs = stmt.executeQuery();
 
@@ -132,35 +133,73 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
                     previous_video_count = Integer.parseInt(rs_ot_videos.getString(1));
                     val = Integer.parseInt(rs.getString("id"));
                     boolean loop_test = true;
+                    boolean inner_loop_test = true;
                     boolean loop_break_flag = true;
+                    boolean inner_loop_break_flag = true;
                     while (loop_test) {
                         loop_break_flag = true;
                         String SQL_check_child_cat = "SELECT child_category_id FROM parent_child_category_mappings where parent_category_id='" + val + "'";
-                        System.out.println("SQL_check_child_cat----------"+SQL_check_child_cat);
+                        System.out.println("SQL_check_child_cat----------" + SQL_check_child_cat);
                         PreparedStatement pst_check_child_cat = con.prepareStatement(SQL_check_child_cat);
                         ResultSet rs_check_chilld_cat = pst_check_child_cat.executeQuery();
                         while (rs_check_chilld_cat.next()) {
+                            inner_loop_test =true;
                             int val_temp = rs_check_chilld_cat.getInt(1);
-                            
-                            String SQl_get_video_count = "SELECT count(video_id) FROM youtube_video_category_mapping where category_id='" + val_temp + "' ;";
-                            System.out.println("SQl_get_video_count------------"+SQl_get_video_count);
-                            PreparedStatement pst_get_video_count = con.prepareStatement(SQl_get_video_count);
-                            ResultSet rs_get_video_count = pst_get_video_count.executeQuery();
-                            rs_get_video_count.next();
-                            int test_total_video_count = rs_get_video_count.getInt(1);
-                            total_video_count = total_video_count + test_total_video_count;
-                            val = val_temp;
-                            loop_break_flag = false;
-                            
+                            System.out.println("val_temp---------------------" + val_temp);
+                            String SQl_get_video_count1 = "SELECT count(video_id) FROM youtube_video_category_mapping where category_id='" + val_temp + "' ;";
+                            System.out.println("SQl_get_video_count1------------" + SQl_get_video_count1);
+                            PreparedStatement pst_get_video_count1 = con.prepareStatement(SQl_get_video_count1);
+                            ResultSet rs_get_video_count1 = pst_get_video_count1.executeQuery();
+                            rs_get_video_count1.next();
+                            middle_vid_count = rs_get_video_count1.getInt(1);
+                            System.out.println("middle_vid_count---" + middle_vid_count);
+                              boolean empty_llist_cat = true;
+                            while (inner_loop_test) {
+                                String SQL_Insidecheck_child_cat = "SELECT child_category_id FROM parent_child_category_mappings where parent_category_id='" + val_temp + "'";
+                                System.out.println("SQL_Insidecheck_child_cat----------" + SQL_Insidecheck_child_cat);
+                                PreparedStatement pst_insidecheck_child_cat = con.prepareStatement(SQL_Insidecheck_child_cat);
+                                ResultSet rs_Insidecheck_chilld_cat = pst_insidecheck_child_cat.executeQuery();
+                              
+                                while (rs_Insidecheck_chilld_cat.next()) {
+                                    val_temp = rs_Insidecheck_chilld_cat.getInt(1);
+                                    System.out.println("rs_Insidecheck_chilld_" + rs_Insidecheck_chilld_cat.getInt(1));
+                                    String SQl_get_video_count = "SELECT count(video_id) FROM youtube_video_category_mapping where category_id='" + val_temp + "' ;";
+                                    System.out.println("SQl_get_video_count------------" + SQl_get_video_count);
+                                    PreparedStatement pst_get_video_count = con.prepareStatement(SQl_get_video_count);
+                                    ResultSet rs_get_video_count = pst_get_video_count.executeQuery();
+                                    rs_get_video_count.next();
+                                    int test_total_video_count = rs_get_video_count.getInt(1);
+                                    total_video_count = total_video_count + test_total_video_count;
+                                    empty_llist_cat = true;
+                                }
+                                if (empty_llist_cat) {
+                                    // Empty result set
+                                    inner_loop_test = false;
+                                    inner_loop_break_flag = false;
+                                    break;
+                                }
+                             
+                                if (inner_loop_break_flag == false) {
+                                   
+                                     // inner_loop_test = false;
+                                    break;
+                                }
+                            }
+
                         }
                         if (loop_break_flag == true) {
                             break;
                         }
                     }
-                    total_video_count = total_video_count + previous_video_count;
+                    total_video_count = total_video_count + previous_video_count + middle_vid_count;
+                    System.out.println(" total_video_count-----" + total_video_count);
+                    System.out.println(" previous_video_count----" + previous_video_count);
+                    System.out.println(" middle_vid_count----" + middle_vid_count);
                     categories_list.add(total_video_count);
                     String convert_create_date = "", convert_modified_date = "";
                     total_video_count = 0;
+                    previous_video_count = 0;
+                    middle_vid_count = 0;
                     try {
                         String createDate = rs.getString(4);
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -210,7 +249,7 @@ public class ListAllCategories extends ActionSupport implements SessionAware {
             sessionMap.put("nested_categorization", test);
             sessionMap.put("all_video_list", all_video_list);
             sessionMap.put("categories_list", categories_list);
-          
+
             sessionMap.put("categorization_name", categorization_name);
             sessionMap.put("categorization_ID", categorization_ID);
         } catch (Exception e) {
