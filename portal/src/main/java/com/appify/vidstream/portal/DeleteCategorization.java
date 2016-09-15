@@ -16,8 +16,9 @@ import java.sql.Statement;
  * @author Nileh Diore
  */
 public class DeleteCategorization extends ActionSupport {
-     private Connection con;
-        private String hidden_app_id,hidden_categorization_name,hidden_categorization_id;
+
+    private Connection con;
+    private String hidden_app_id, hidden_categorization_name, hidden_categorization_id;
 
     public String getHidden_categorization_id() {
         return hidden_categorization_id;
@@ -35,8 +36,6 @@ public class DeleteCategorization extends ActionSupport {
         this.hidden_app_id = hidden_app_id;
     }
 
-   
-
     public String getHidden_categorization_name() {
         return hidden_categorization_name;
     }
@@ -45,13 +44,11 @@ public class DeleteCategorization extends ActionSupport {
         this.hidden_categorization_name = hidden_categorization_name;
     }
 
-   
-        
     public DeleteCategorization() {
     }
-    
+
     public String execute() throws Exception {
-         try {
+        try {
             con = null;
 
 
@@ -59,13 +56,27 @@ public class DeleteCategorization extends ActionSupport {
 
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
-        String app_id =getHidden_app_id();
-        String cat_name=getHidden_categorization_name();
-        String cat_id = getHidden_categorization_id();
+            String app_id = getHidden_app_id();
+            String cat_name = getHidden_categorization_name();
+            String cat_id = getHidden_categorization_id();
 
 
-            String sql = "DELETE FROM categorization WHERE id ='" + Integer.parseInt(cat_id) + "' and name='"+cat_name+"'";
-            System.out.println("sql_for delete categorization:::"+sql);
+
+            try {
+                String oldChar = "\'";
+                String newChar = "\'\'";
+                if (cat_name.contains("'")) {
+                    cat_name = cat_name.replace(oldChar, newChar);
+                    System.out.println("New Generated Category_name" + cat_name.replace(oldChar, newChar));
+                } else {
+                }
+            } catch (Exception exp1) {
+                System.out.println("Exception in New Generating Category_name");
+            }
+
+
+            String sql = "DELETE FROM categorization WHERE id ='" + Integer.parseInt(cat_id) + "' and name='" + cat_name + "'";
+            System.out.println("sql_for delete categorization:::" + sql);
             Statement createStatement = con.createStatement();
             createStatement.execute(sql);
             return SUCCESS;
@@ -74,7 +85,7 @@ public class DeleteCategorization extends ActionSupport {
             return ERROR;
         } finally {
             try {
-                
+
 
                 con.close();
             } catch (Exception e) {

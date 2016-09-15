@@ -4,7 +4,7 @@
     Author     : Nileh Diore
 --%>
 
-<%@page import="com.appify.vidstream.portal.AdminPrtalConstant"%>
+<%@ page import="com.appify.vidstream.portal.util.PortalConstants" %>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -424,7 +424,7 @@
                                 <script>
                                     var VideoId_List = [];
                                    
-                                     var ytkey = '<%= AdminPrtalConstant.YOUTUBE_API_KEY %>';
+                                     var ytkey = '<%= PortalConstants.YOUTUBE_API_KEY %>';
                                     <%
                                         ArrayList videoid_list = new ArrayList();
 
@@ -1224,6 +1224,7 @@ $("#Map_video_ID").val(vid);
                                                 title: "Map Video",
                                                 width: 530,
                                                 height: 330,
+                                                modal:true,
                                                 open: function(event, ui) {
                                                     originalContent = $("#diolog_Map_video").html();
 
@@ -2034,7 +2035,7 @@ $("#Map_video_ID").val(vid);
 
                                                                         </tr>
                                                                         <tr class="info">
-                                                                            <td><button  class="btn btn-info" style="margin-left: 50px;" type="submit" id="submitButton" name="submitButton" value="Submit" class="blue">ADD</button></td>
+                                                                            <td><button  class="btn btn-info" style="margin-left: 50px;" type="submit" id="submitButton" name="submitButton" value="Submit" class="blue">Map</button></td>
                                                                             <td></td>
                                                                         </tr>
 

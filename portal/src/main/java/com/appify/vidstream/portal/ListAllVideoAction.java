@@ -119,7 +119,7 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
             ResultSet rs_child_category = pst_child_category.executeQuery();
             while (rs_child_category.next()) {
                 loop_test =true;
-                SQL_Child_Category_details = "select name, image, date(date_created),date(date_modified),id from category where id='" + rs_child_category.getInt(1) + "'";
+                SQL_Child_Category_details = "select name, image, date(date_created),date(date_modified),id from category where id='" + rs_child_category.getInt(1) + "' order by date_modified desc ";
                 pst_child_category_details = con.prepareStatement(SQL_Child_Category_details);
                 rs_child_category_details = pst_child_category_details.executeQuery();
                 while (rs_child_category_details.next()) {

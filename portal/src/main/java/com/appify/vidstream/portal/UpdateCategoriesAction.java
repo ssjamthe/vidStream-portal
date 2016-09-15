@@ -59,8 +59,6 @@ public class UpdateCategoriesAction extends ActionSupport implements
         this.hidden_Edit_category_ID_NEW = hidden_Edit_category_ID_NEW;
     }
 
-   
-
     public String getEdit_category_Name() {
         return Edit_category_Name;
     }
@@ -68,8 +66,6 @@ public class UpdateCategoriesAction extends ActionSupport implements
     public void setEdit_category_Name(String Edit_category_Name) {
         this.Edit_category_Name = Edit_category_Name;
     }
-
-    
 
     public File[] getFileUpload() {
         return fileUpload;
@@ -107,7 +103,7 @@ public class UpdateCategoriesAction extends ActionSupport implements
             Timestamp mod_date = new Timestamp(date.getTime());
 
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
-            
+
 
             String updte_cat_name = getEdit_category_Name();
 
@@ -130,7 +126,7 @@ public class UpdateCategoriesAction extends ActionSupport implements
                 prest = con.prepareStatement(sql);
                 prest.setInt(1, Integer.parseInt(catId));
                 prest.setString(2, updte_cat_name);
-                 prest.setTimestamp(3, mod_date);
+                prest.setTimestamp(3, mod_date);
 
 
                 String SQL_upload_image = "INSERT INTO images(name,contents) values(?,?) ";
@@ -156,12 +152,87 @@ public class UpdateCategoriesAction extends ActionSupport implements
                 int img_id = executeQuery.getInt(1);
 
                 prest.setInt(4, img_id);
-                
+
                 prest.executeUpdate();
                 System.out.println("Update in category table");
 
             }
+            try {
+                try {
+                    String oldChar = "\'";
+                    String newChar = "\'\'";
+                    if (updte_cat_name.contains("'")) {
+                        updte_cat_name = updte_cat_name.replace(oldChar, newChar);
+                        System.out.println("New Generated Category_name" + updte_cat_name.replace(oldChar, newChar));
+                    } else {
+                    }
+                } catch (Exception exp1) {
+                    System.out.println("Exception in New Generating Category_name");
+                }
 
+                boolean test_loop = true;
+                boolean loop_break_test = true;
+                int loop_parent_cat_id = 0;
+                int check_parent_cat_id;
+                check_parent_cat_id = Integer.parseInt(catId);
+                while (test_loop) {
+                    String SQl_get_Parent_cat = "SELECT parent_category_id FROM parent_child_category_mappings where child_category_id='" + check_parent_cat_id + "'";
+                    PreparedStatement pst_get_Parent_cat = con.prepareStatement(SQl_get_Parent_cat);
+                    ResultSet rs_get_Parent_cat = pst_get_Parent_cat.executeQuery();
+                    if (!rs_get_Parent_cat.next()) {
+                        test_loop = false;
+                        loop_break_test = false;
+                        break;
+                    } else {
+                        loop_parent_cat_id = rs_get_Parent_cat.getInt(1);
+                        check_parent_cat_id = loop_parent_cat_id;
+                        
+                        
+                String SQl_Upadte_Parent_cat = "UPDATE category set date_modified=? where id='" + loop_parent_cat_id + "'";
+                PreparedStatement pst_Upadte_Parent_cat = con.prepareStatement(SQl_Upadte_Parent_cat);
+                pst_Upadte_Parent_cat.setTimestamp(1, mod_date);
+                pst_Upadte_Parent_cat.executeUpdate();
+
+                    }
+
+                    if (loop_break_test == false) {
+                        test_loop = false;
+                        // inner_loop_test = false;
+                        break;
+                    }
+
+                }
+
+
+
+
+                String SQl_get_categorization = "SELECT categorization_id FROM category where id='" + catId + "'";
+                PreparedStatement pst_get_catzion = con.prepareStatement(SQl_get_categorization);
+                ResultSet rs_get_catzion = pst_get_catzion.executeQuery();
+                rs_get_catzion.next();
+
+                String SQl_getappid = "select app_id from categorization where id='" + rs_get_catzion.getInt(1) + "'";
+                PreparedStatement pst_getappid = con.prepareStatement(SQl_getappid);
+                ResultSet rs_getappid = pst_getappid.executeQuery();
+                rs_getappid.next();
+
+
+                String sql_update_mod_date = "UPDATE categorization set date_modified=?  where id='" + rs_get_catzion.getInt(1) + "'";
+
+                PreparedStatement pst_update_mod_date = con.prepareStatement(sql_update_mod_date);
+                pst_update_mod_date.setTimestamp(1, mod_date);
+                System.out.println("sql_update_mod_date-----------" + sql_update_mod_date);
+                pst_update_mod_date.executeUpdate();
+
+                String sql_app_update_mod_date = "UPDATE application set date_modified=?  where id='" + rs_getappid.getInt(1) + "'";
+
+                PreparedStatement pst_update_appmod_date = con.prepareStatement(sql_app_update_mod_date);
+                pst_update_appmod_date.setTimestamp(1, mod_date);
+                System.out.println("sql_update_mod_date-----------" + sql_app_update_mod_date);
+                pst_update_appmod_date.executeUpdate();
+            } catch (Exception exp) {
+                System.out.println("Exception----" + exp);
+            }
 
 
         } catch (SQLException e) {

@@ -36,7 +36,7 @@ public class AddCategorization extends ActionSupport implements
     String fileName, fileName1;
     FileInputStream fis, fis1;
     File uploadedFile1;
-    private String  categorization, app_name,app_id;
+    private String categorization, app_name, app_id;
     private HttpServletRequest servletRequest;
     private Connection con;
     private ResultSet rs_st;
@@ -68,8 +68,6 @@ public class AddCategorization extends ActionSupport implements
     public void setApp_id22(int app_id22) {
         this.app_id22 = app_id22;
     }
-
-   
 
     public String getCategorization() {
         return categorization;
@@ -110,15 +108,15 @@ public class AddCategorization extends ActionSupport implements
         prest = null;
 
         try {
-            String  cat, apn;
+            String cat, apn;
             int apd;
 
-           // apd = app_id22;
+            // apd = app_id22;
             cat = categorization;
             //apn = app_name;
-            String current_app_id=app_id;
-           // System.out.println("current_app_id...................."+current_app_id);
-         int app_id=  Integer.parseInt(current_app_id);
+            String current_app_id = app_id;
+            // System.out.println("current_app_id...................."+current_app_id);
+            int app_id = Integer.parseInt(current_app_id);
 
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             sql_img = "INSERT INTO images(name,contents) values(?,?)";
@@ -136,43 +134,48 @@ public class AddCategorization extends ActionSupport implements
                 prest_img.setBinaryStream(2, fis, (int) uploadedFile.length());
             }
             prest_img.executeUpdate();
-            
-             String sql_img_id = "select id from images where name='" + cat + "' order by id desc limit 1";
+
+
+
+            try {
+                String oldChar = "\'";
+                String newChar = "\'\'";
+                if (cat.contains("'")) {
+                    cat = cat.replace(oldChar, newChar);
+                    System.out.println("New Generated Category_name" + cat.replace(oldChar, newChar));
+                } else {
+                }
+            } catch (Exception exp1) {
+                System.out.println("Exception in New Generating Category_name");
+            }
+
+            String sql_img_id = "select id from images where name='" + cat + "' order by id desc limit 1";
             PreparedStatement prepareStatement = con.prepareStatement(sql_img_id);
             ResultSet executeQuery = prepareStatement.executeQuery();
             executeQuery.next();
             int img_id = executeQuery.getInt(1);
             prest = con.prepareStatement(sql);
             prest.setInt(1, app_id);
-            prest.setString(2, cat);
+            prest.setString(2, categorization);
             prest.setInt(3, img_id);
             prest.executeUpdate();
             System.out.println("Categorization added successfully");
-            try{
-            String getapp="SELECT app_id  FROM categorization where id='3'";
-            PreparedStatement pst_app = con.prepareStatement(getapp);
-            ResultSet rs_app = pst_app.executeQuery();
-            rs_app.next();
-            
-            
-            
-                     SimpleDateFormat originalFormat;
-            java.util.Date date = new java.util.Date();
-            System.out.println(new Timestamp(date.getTime()));
-            Timestamp mod_date = new Timestamp(date.getTime());
+            try {
+                SimpleDateFormat originalFormat;
+                java.util.Date date = new java.util.Date();
+                System.out.println(new Timestamp(date.getTime()));
+                Timestamp mod_date = new Timestamp(date.getTime());
 
-             
-                String sql_update_mod_date = "UPDATE application set date_modified=?  where id='" + rs_app.getInt(1) + "'";
-                
+                String sql_update_mod_date = "UPDATE application set date_modified=?  where id='" + app_id + "'";
                 PreparedStatement pst_update_mod_date = con.prepareStatement(sql_update_mod_date);
                 pst_update_mod_date.setTimestamp(1, mod_date);
-                System.out.println("sql_update_mod_date-----------"+sql_update_mod_date);
+                System.out.println("sql_update_mod_date-----------" + sql_update_mod_date);
                 pst_update_mod_date.executeUpdate();
-            }catch(Exception exp){
-              System.out.println("Exception-----------"+exp);
+            } catch (Exception exp) {
+                System.out.println("Exception-----------" + exp);
             }
-            
-            
+
+
             con.close();
             return SUCCESS;
         } catch (SQLException | ClassNotFoundException e) {

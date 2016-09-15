@@ -136,7 +136,7 @@ public class UpdateCategorization extends ActionSupport implements
                 String sql = "update categorization set app_id=?,name=?,image=?, date_modified=? where id='" + catId + "' ";
 
                 prest = con.prepareStatement(sql);
-             prest.setInt(1, Integer.parseInt(hideen_app_id));
+                prest.setInt(1, Integer.parseInt(hideen_app_id));
                 prest.setString(2, updte_cat_name);
 
 
@@ -169,7 +169,11 @@ public class UpdateCategorization extends ActionSupport implements
 
             }
 
-
+            String sql_update_mod_date = "UPDATE application set date_modified=?  where id='" + hideen_app_id + "'";
+            PreparedStatement pst_update_mod_date = con.prepareStatement(sql_update_mod_date);
+            pst_update_mod_date.setTimestamp(1, mod_date);
+            System.out.println("sql_update_mod_date-----------" + sql_update_mod_date);
+            pst_update_mod_date.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace(System.out);

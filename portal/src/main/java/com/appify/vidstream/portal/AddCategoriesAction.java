@@ -140,8 +140,22 @@ public class AddCategoriesAction extends ActionSupport implements
 
 
             }
+
             prest_img.executeUpdate();
+            System.out.println("Images added in image table");
+            try {
+                String oldChar = "\'";
+                String newChar = "\'\'";
+                if (cat_gir.contains("'")) {
+                    cat_gir = cat_gir.replace(oldChar, newChar);
+                    System.out.println("New Generated Category_name" + cat_gir.replace(oldChar, newChar));
+                } else {
+                }
+            } catch (Exception exp1) {
+                System.out.println("Exception in New Generating Category_name");
+            }
             String sql_img_id = "select id from images where name='" + cat_gir + "' order by id desc limit 1";
+            System.out.println("sql_img_id----" + sql_img_id);
             PreparedStatement prepareStatement = con.prepareStatement(sql_img_id);
             ResultSet executeQuery = prepareStatement.executeQuery();
             executeQuery.next();
@@ -152,7 +166,7 @@ public class AddCategoriesAction extends ActionSupport implements
             sql = "INSERT INTO category(name,image,categorization_id) VALUES (?,?,?)";
 
             prest = con.prepareStatement(sql);
-            prest.setString(1, cat_gir);
+            prest.setString(1, cat_goriesnew);
             prest.setInt(2, img_id);
 
             prest.setInt(3, cat_id);

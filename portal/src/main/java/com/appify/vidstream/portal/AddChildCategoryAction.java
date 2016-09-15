@@ -118,8 +118,8 @@ public class AddChildCategoryAction extends ActionSupport implements
 
         try {
             String apn, cat_name2, cat_gir, prntcat;
-            
-            
+
+
             System.err.println("parent_cat_name::::::::::::::-" + parent_cat_name);
             parent_category_ID = Integer.parseInt(parent_cat_name);
             //apn = appl_name222;
@@ -142,6 +142,19 @@ public class AddChildCategoryAction extends ActionSupport implements
                 prest_img.setBinaryStream(2, fis, (int) uploadedFile.length());
             }
             prest_img.executeUpdate();
+
+            try {
+                String oldChar = "\'";
+                String newChar = "\'\'";
+                if (cat_gir.contains("'")) {
+                    cat_gir = cat_gir.replace(oldChar, newChar);
+                    System.out.println("New Generated Category_name" + cat_gir.replace(oldChar, newChar));
+                } else {
+                }
+            } catch (Exception exp1) {
+                System.out.println("Exception in New Generating Category_name");
+            }
+
             String sql_img_id = "select id from images where name='" + cat_gir + "' order by id desc limit 1";
             PreparedStatement prepareStatement = con.prepareStatement(sql_img_id);
             ResultSet executeQuery = prepareStatement.executeQuery();
@@ -149,7 +162,7 @@ public class AddChildCategoryAction extends ActionSupport implements
             int img_id = executeQuery.getInt(1);
             sql = "INSERT INTO category(name,image,categorization_id) VALUES (?,?,?)";
             prest = con.prepareStatement(sql);
-            prest.setString(1, cat_gir);
+            prest.setString(1, cat_goriesnew);
             prest.setInt(2, img_id);
 
             prest.setInt(3, cat_id);
@@ -169,10 +182,10 @@ public class AddChildCategoryAction extends ActionSupport implements
             if (!parent_cat_name.equals("Parent Category")) {
                 // hide from 03-Sept-16 Saturday
                /* String get_parent_category = "select id from category where name='" + parent_cat_name + "' order by id ";
-                PreparedStatement pst_get_parent_category = con.prepareStatement(get_parent_category);
-                ResultSet rs_get_parent_category = pst_get_parent_category.executeQuery();
-                rs_get_parent_category.next();
-                String new_get_parent_category_id = rs_get_parent_category.getString(1);*/
+                 PreparedStatement pst_get_parent_category = con.prepareStatement(get_parent_category);
+                 ResultSet rs_get_parent_category = pst_get_parent_category.executeQuery();
+                 rs_get_parent_category.next();
+                 String new_get_parent_category_id = rs_get_parent_category.getString(1);*/
 
 
                 String SQL_parent_child_category_mapping = "insert into parent_child_category_mappings(parent_category_id,child_category_id)values(?,?)";
@@ -182,25 +195,52 @@ public class AddChildCategoryAction extends ActionSupport implements
                 pst_parent_child_category_mapping.executeUpdate();
                 System.out.println("parent_child_category_mappings added successfully");
             }
-            
-            
-             try {
+
+
+            try {
+
+                boolean test_loop = true;
+                boolean loop_break_test = true;
+                int loop_parent_cat_id = 0;
+                int check_parent_cat_id;
+
+
                 SimpleDateFormat originalFormat;
                 java.util.Date date = new java.util.Date();
                 System.out.println(new Timestamp(date.getTime()));
                 Timestamp mod_date = new Timestamp(date.getTime());
 
+                while (test_loop) {
+                    String SQl_get_Parent_cat = "SELECT parent_category_id FROM parent_child_category_mappings where child_category_id=(select id from category where name ='" + cat_gir + "')";
+                    PreparedStatement pst_get_Parent_cat = con.prepareStatement(SQl_get_Parent_cat);
+                    ResultSet rs_get_Parent_cat = pst_get_Parent_cat.executeQuery();
+                    if (!rs_get_Parent_cat.next()) {
+                        test_loop = false;
+                        loop_break_test = false;
+                        break;
+
+                    } else {
+                        loop_parent_cat_id = rs_get_Parent_cat.getInt(1);
+                        check_parent_cat_id = loop_parent_cat_id;
+
+                        String SQl_Upadte_Parent_cat = "UPDATE category set date_modified=? where id='" + loop_parent_cat_id + "'";
+                        PreparedStatement pst_Upadte_Parent_cat = con.prepareStatement(SQl_Upadte_Parent_cat);
+                        pst_Upadte_Parent_cat.setTimestamp(1, mod_date);
+                        pst_Upadte_Parent_cat.executeUpdate();
+                    }
 
 
-                String SQl_get_Parent_cat = "SELECT parent_category_id FROM parent_child_category_mappings where child_category_id=(select id from category where name ='" + cat_gir + "')";
-                PreparedStatement pst_get_Parent_cat = con.prepareStatement(SQl_get_Parent_cat);
-                ResultSet rs_get_Parent_cat = pst_get_Parent_cat.executeQuery();
-                rs_get_Parent_cat.next();
+                    if (loop_break_test == false) {
+                        test_loop = false;
+                        // inner_loop_test = false;
+                        break;
+                    }
 
-                String SQl_Upadte_Parent_cat = "UPDATE category set date_modified=? where id='" + rs_get_Parent_cat.getInt(1) + "'";
-                PreparedStatement pst_Upadte_Parent_cat = con.prepareStatement(SQl_Upadte_Parent_cat);
-                pst_Upadte_Parent_cat.setTimestamp(1, mod_date);
-                pst_Upadte_Parent_cat.executeUpdate();
+
+                }
+
+
+
 
                 String SQl_get_categorization = "SELECT categorization_id FROM category where name='" + cat_gir + "'";
                 PreparedStatement pst_get_catzion = con.prepareStatement(SQl_get_categorization);

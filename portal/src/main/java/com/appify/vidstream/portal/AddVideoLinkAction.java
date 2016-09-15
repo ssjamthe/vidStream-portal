@@ -163,47 +163,7 @@ public class AddVideoLinkAction extends ActionSupport {
                     int check_child_cat = 0;
                     check_child_cat = cate;
 
-                    /*   int parent_category_ID;
-                     parent_category_ID = 0;
-                     int temp_parent_category_ID;
-                     String SQl_get_Parent_cat = "SELECT parent_category_id FROM parent_child_category_mappings where child_category_id='" + cate + "'";
-                     PreparedStatement pst_get_Parent_cat = con.prepareStatement(SQl_get_Parent_cat);
-                     ResultSet rs_get_Parent_cat = pst_get_Parent_cat.executeQuery();
-                     boolean loop_test = true;
-                     boolean loop_break_flag = true;
-                     while (rs_get_Parent_cat.next()) {
-                     parent_category_ID = rs_get_Parent_cat.getInt(1);
-                     temp_parent_category_ID = parent_category_ID;
-                     String sql_out_loop_mod_date = "UPDATE category set date_modified=?  where id='" + parent_category_ID + "'";
-                     PreparedStatement pst_out_loop_mod_date = con.prepareStatement(sql_out_loop_mod_date);
-                     pst_out_loop_mod_date.setTimestamp(1, mod_date);
-                     System.out.println("sql_update_mod_date-----------" + sql_out_loop_mod_date);
-                     pst_out_loop_mod_date.executeUpdate();
-                     while (loop_test) {
-                     loop_break_flag = true;
-
-                     String SQl_get_Parent_Subcat = "SELECT parent_category_id FROM parent_child_category_mappings where child_category_id='" + temp_parent_category_ID + "'";
-                     PreparedStatement pst_sub_Parent_child_cat = con.prepareStatement(SQl_get_Parent_Subcat);
-                     ResultSet rs_sub_Parent_child_cat = pst_sub_Parent_child_cat.executeQuery();
-                     while (rs_sub_Parent_child_cat.next()) {
-                     int loop_parent_id = rs_sub_Parent_child_cat.getInt(1);
-                     temp_parent_category_ID = loop_parent_id;
-                     String sql_loop_mod_date = "UPDATE category set date_modified=?  where id='" + temp_parent_category_ID + "'";
-                     PreparedStatement pst_loop_mod_date = con.prepareStatement(sql_loop_mod_date);
-                     pst_loop_mod_date.setTimestamp(1, mod_date);
-                     System.out.println("sql_update_mod_date-----------" + sql_loop_mod_date);
-                     pst_loop_mod_date.executeUpdate();
-                     System.out.println("temp_parent_category_ID---------------------" + temp_parent_category_ID);
-                     loop_break_flag = false;
-                     }
-                     if (loop_break_flag == true) {
-                     break;
-                     }
-                     }
-
-
-                     }
-                     */
+                  
 
                     while (loop_test) {
                         String SQL_check_parent = "SELECT parent_category_id FROM parent_child_category_mappings where child_category_id='" + check_child_cat + "'";

@@ -4,7 +4,7 @@
  */
 package com.appify.vidstream.portal;
 
-import static com.appify.vidstream.portal.AdminPrtalConstant.YOUTUBE_API_KEY;
+
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
@@ -41,8 +41,6 @@ public class ExploreYoutubeAction extends ActionSupport implements SessionAware 
     public String execute() throws Exception {
         try {
             video_id_list = new ArrayList();
-           
-            System.out.println("YOUTUBE_API_KEY----------------"+YOUTUBE_API_KEY);
             Category_Wise_Video_List = new ArrayList();
             category_idandname_list = new ArrayList();
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();

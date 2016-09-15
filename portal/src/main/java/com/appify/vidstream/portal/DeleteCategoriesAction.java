@@ -47,10 +47,21 @@ public class DeleteCategoriesAction extends ActionSupport {
 
             String CATID = getHidden_category_id();
             String CATNAME = getHidden_category_name();
+            
+            
+            
+                 try {
+                String oldChar = "\'";
+                String newChar = "\'\'";
+                if (CATNAME.contains("'")) {
+                    CATNAME = CATNAME.replace(oldChar, newChar);
+                    System.out.println("New Generated Category_name" + CATNAME.replace(oldChar, newChar));
+                } else {
+                }
+            } catch (Exception exp1) {
+                System.out.println("Exception in New Generating Category_name");
+            }
 
-String SQl_Check_category_mapping="SELECT id, parent_category_id, child_category_id FROM parent_child_category_mappings where child_category_id";
-            
-            
             String sql = "DELETE FROM category WHERE id ='" + Integer.parseInt(CATID) + "' and name='" + CATNAME + "'";
             System.out.println("sql_for delete:::" + sql);
             Statement createStatement = con.createStatement();

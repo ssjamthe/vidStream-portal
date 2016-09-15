@@ -61,6 +61,7 @@
         <action name="add_video_link" class="com.appify.vidstream.portal.AddVideoLinkAction">
             
             <result name="success">PreListVideoAction.jsp</result> 
+             <result name="error">/error.jsp</result>
         </action> 
         
         <action name="homepageaction" class="com.appify.vidstream.portal.HomePageAction">
@@ -121,10 +122,12 @@
         </action>
         
         <action name="delete_categories" class="com.appify.vidstream.portal.DeleteCategoriesAction">  
-            <result name="success">PreListCategories.jsp</result>   
+            <result name="success">PreListCategories.jsp</result> 
+               <result name="error">/error.jsp</result>
         </action>
           <action name="delete_child_categories" class="com.appify.vidstream.portal.DeleteCategoriesAction">  
-            <result name="success">PreListVideoAction.jsp</result>   
+            <result name="success">PreListVideoAction.jsp</result>  
+              <result name="error">/error.jsp</result>
         </action>
         
         <action name="add_user" class="com.appify.vidstream.portal.AddNewUserAction">

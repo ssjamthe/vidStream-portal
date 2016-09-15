@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page import="com.appify.vidstream.portal.AdminPrtalConstant" %>
+<%@ page import="com.appify.vidstream.portal.util.PortalConstants" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
 
@@ -552,7 +552,7 @@
                                         <script type="text/javascript">
                                             var VideoId_List = [];
                                             var tk = 1;
-                                           var ytkey = '<%= AdminPrtalConstant.YOUTUBE_API_KEY %>';
+                                           var ytkey = '<%= PortalConstants.YOUTUBE_API_KEY %>';
                                            
                                            
                                             

@@ -35,6 +35,7 @@ public class DataSourceFactory {
                                 System.out.println("Inside DataSource Factory-----");
 				BasicDataSource ds=new BasicDataSource();
 				Properties conf=ResourceHelper.getResource();
+                             
 				ds.setUrl(conf.getProperty("url"));
 				ds.setDriverClassName(conf.getProperty("driverClassName"));
 				ds.setUsername(conf.getProperty("username"));
@@ -42,6 +43,7 @@ public class DataSourceFactory {
 				ds.setMaxTotal(Integer.parseInt(conf.getProperty("maxConnections")));
 				ds.setMaxIdle(Integer.parseInt(conf.getProperty("maxConnections")));
 				dataSource=ds;
+                                System.out.println("dataSource---"+dataSource);
 				log.debug("DataSource successfully created with total Connections..."+ds.getMaxTotal());
 			}
 			

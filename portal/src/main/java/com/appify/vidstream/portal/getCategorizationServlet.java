@@ -53,6 +53,20 @@ public class getCategorizationServlet extends HttpServlet {
         try {
             categorization_name = request.getParameter("categorization_name");
             System.out.println("categorization_name::::" + categorization_name);
+            
+            
+                  try {
+                String oldChar = "\'";
+                String newChar = "\'\'";
+                if (categorization_name.contains("'")) {
+                    categorization_name = categorization_name.replace(oldChar, newChar);
+                    System.out.println("New Generated Category_name" + categorization_name.replace(oldChar, newChar));
+                } else {
+                    
+                }
+            } catch (Exception exp1) {
+                System.out.println("Exception in New Generating Category_name");
+            }
 
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
             Sql_get_categorization_ref_id = "select id  from categorization where name='" + categorization_name + "'";

@@ -308,7 +308,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     @Override
     public void validate() {
       
-        //System.out.println("username---" + username);
+        System.out.println("username---" + username);
         PreparedStatement pst_userc = null;
           PreparedStatement pst_check= null;
         ResultSet rs_check_userc = null;
@@ -322,6 +322,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
        try{
         try {
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
+             System.out.println("con---" + con);
         } catch (SQLException ex) {
             Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
