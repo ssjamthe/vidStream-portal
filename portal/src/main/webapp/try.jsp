@@ -1,24 +1,16 @@
 <!doctype html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-    <head>
-        <script>
-
-            <c:forEach var="i" begin="1" end="5">
-                Item <c:out value="${i}"/> < p >
-                        alert(${i});
-            </c:forEach>  
-        </script>
 <script>
-  
-        <c:forEach items="${cTagBean.tagList}" var="ctag" varStatus="loop">
-            '${ctag.name}': ${ctag.age}${!loop.last ? ',' : ''}
-     
-        </c:forEach>
-  
+function bar(){
+   var baz = document.getElementById('foo').value;
+   var arr = baz.split(/[\n\r]/g);
+    alert(arr);
+   // document.getElementById('foo').value = "foo\nbar";
+}
 </script>
-    </head>
-    <body >
+<body onload="bar()">
+<form><textarea id="foo" name="foo">
 
-    </body>
-</html>
+</textarea>
+<input type="submit">
+</form>
+</body>

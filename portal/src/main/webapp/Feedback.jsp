@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@page import="java.util.ArrayList"%>
@@ -705,18 +706,21 @@
                 ArrayList d = new ArrayList();
                 d = (ArrayList) session.getAttribute("list_all_user_feedback");
                 String s = d.get(3).toString().trim();
+                String s2 = null;
+                int k = 3;
+                String h;
                 for (int i = 0; i < d.size(); i++) {
-                    if (i % 3 == 0) {
-                        String s1 = d.get(i).toString();
-                        String s2 = s1.replace("\n", "+");
+                    String s1 = d.get(i).toString();
 
-            %>    data_list.push("<%= s2%>");<% } else {%>
-            data_list.push("<%= d.get(i)%>");
-
-            <%
-                    }
+                    System.out.println("s1---------" + s1);
+                    if (s1.contains("\n")) {
+                        s2 = s1.replace("\n", "+");
+                        System.out.println("s2---------" + s2);%>
+            data_list.push("<%= s2%>");
+            <% } else {%>
+            data_list.push("<%= s1%>");
+            <%  }
                 }%>
-
 
             function get_feedback_details_app_wise() {
                 data_list.length = 0;
@@ -748,9 +752,11 @@
                 });
             }
             $(function() {
+                alert('jiii');
                 add_data();
             });
             function add_data() {
+
                 var j = 0;
                 var n = "\n";
                 var plus = "+";
@@ -762,14 +768,19 @@
                     var app_name2 = ++j;
                     var app_name3 = ++j;
                     var str = data_list[app_name2];
+
                     var t = str.includes("+");
                     var r;
                     var r_plus;
                     if (t) {
+
                         var allFoundCharacters = str.match(specialChars);
+                        alert(allFoundCharacters);
                         r = n.repeat(allFoundCharacters.length);
                         r_plus = plus.repeat(allFoundCharacters.length);
                     }
+
+
                     db.clients1 =
                             {
                                 "App_ID": data_list[kt],

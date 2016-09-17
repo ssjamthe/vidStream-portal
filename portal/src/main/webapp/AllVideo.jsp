@@ -824,7 +824,7 @@
                             element.appendChild(option2);
                             for (var i = 0; i < data.length; i++) {
                                 var option = document.createElement("option");
-                                option.setAttribute("value", data[i].child_category_name);
+                                option.setAttribute("value", data[i].child_category_id);
                                 option.text = data[i].child_category_name;
                                 element.appendChild(option);
 
@@ -877,7 +877,7 @@
 
                             for (var i = 0; i < data.length; i++) {
                                 var option = document.createElement("option");
-                                option.setAttribute("value", data[i].child_category_name);
+                                option.setAttribute("value", data[i].child_category_id);
                                 option.text = data[i].child_category_name;
                                 element2.appendChild(option);
                             }

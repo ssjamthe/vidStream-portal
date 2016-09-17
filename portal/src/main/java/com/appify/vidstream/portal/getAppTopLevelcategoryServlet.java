@@ -36,12 +36,11 @@ public class getAppTopLevelcategoryServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-    	List  <Integer> parent_category_list  = new <Integer> ArrayList();
-    	Connection con = null;
-        String sql_app_catories,categorization_id = "";
+        List<Integer> parent_category_list = new <Integer> ArrayList();
+        Connection con = null;
+        String sql_app_catories, categorization_id = "";
         PreparedStatement stmt_app_catories = null;
         ResultSet rs_app_catories = null;
 
@@ -53,19 +52,19 @@ public class getAppTopLevelcategoryServlet extends HttpServlet {
 
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
-          /*  String SQl_parent_category_list = "select distinct parent_category_id from parent_child_category_mappings order by parent_category_id asc";
-            PreparedStatement pst_parent_category_list = con.prepareStatement(SQl_parent_category_list);
-            ResultSet rs_parent_category_list = pst_parent_category_list.executeQuery();
-            while (rs_parent_category_list.next()) {
-                parent_category_list.add(rs_parent_category_list.getInt(1));
-            }*/
-             String SQl_child_category_list = "select distinct child_category_id from parent_child_category_mappings order by child_category_id asc";
-             PreparedStatement pst_child_category_list = con.prepareStatement(SQl_child_category_list);
-             ResultSet rs_child_category_list = pst_child_category_list.executeQuery();
-             while (rs_child_category_list.next()) {
-             parent_category_list.add(rs_child_category_list.getInt(1));
-             }
-           
+            /*  String SQl_parent_category_list = "select distinct parent_category_id from parent_child_category_mappings order by parent_category_id asc";
+             PreparedStatement pst_parent_category_list = con.prepareStatement(SQl_parent_category_list);
+             ResultSet rs_parent_category_list = pst_parent_category_list.executeQuery();
+             while (rs_parent_category_list.next()) {
+             parent_category_list.add(rs_parent_category_list.getInt(1));
+             }*/
+            String SQl_child_category_list = "select distinct child_category_id from parent_child_category_mappings order by child_category_id asc";
+            PreparedStatement pst_child_category_list = con.prepareStatement(SQl_child_category_list);
+            ResultSet rs_child_category_list = pst_child_category_list.executeQuery();
+            while (rs_child_category_list.next()) {
+                parent_category_list.add(rs_child_category_list.getInt(1));
+            }
+
 
             sql_app_catories = "select id,name from category where categorization_id='" + categorization_id + "'  ORDER BY name asc";
 
@@ -86,18 +85,13 @@ public class getAppTopLevelcategoryServlet extends HttpServlet {
                 }
 
                 if (match_found == true) {
-
-
-
-
                     System.out.println("match_found true::::::::::-----" + catid);
                     System.out.println("data" + rs_app_catories.getString(2));
                     //str=str+"<option>"+rs.getString(1)+"</option>";
                     //out.print("<option>" + rs.getString(1) + "</option>");
-                    out.print("<option value='" + rs_app_catories.getString(2) + "'>" + rs_app_catories.getString(2) + "</option>");
+                    out.print("<option value='" + rs_app_catories.getString(1) + "'>" + rs_app_catories.getString(2) + "</option>");
                 } else {
                 }
-
 
             }
 

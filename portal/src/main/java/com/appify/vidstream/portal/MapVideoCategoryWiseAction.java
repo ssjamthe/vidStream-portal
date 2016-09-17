@@ -79,24 +79,26 @@ public class MapVideoCategoryWiseAction extends ActionSupport {
             System.out.println("AppID" + AppID);
             System.out.println("Map_catogory" + Map_catogory);
             System.out.println("last_child_category" + last_child_category);
-            try{
-          if(last_child_category.equals("")){
-            last_child_category =Map_catogory;
-            }else{
-          }
-            }catch(Exception e1){
-                System.out.println("Exception in check whether last_child_category is null--- "+e1);
+            try {
+                if (last_child_category.equals("")) {
+                    last_child_category = Map_catogory;
+                } else {
+                }
+            } catch (Exception e1) {
+                System.out.println("Exception in check whether last_child_category is null--- " + e1);
             }
-          
+
 
 
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
+            int Map_category_id;
+            /* String SQl_getMapcatid = "select id from category where name='" + last_child_category + "'";
+             PreparedStatement pst_Mapcatid = con.prepareStatement(SQl_getMapcatid);
+             ResultSet rs_Mapcatid = pst_Mapcatid.executeQuery();
+             rs_Mapcatid.next();
+             int Map_category_id = rs_Mapcatid.getInt(1);*/
+            Map_category_id = Integer.parseInt(last_child_category);
 
-           String SQl_getMapcatid = "select id from category where name='" + last_child_category + "'";
-            PreparedStatement pst_Mapcatid = con.prepareStatement(SQl_getMapcatid);
-            ResultSet rs_Mapcatid = pst_Mapcatid.executeQuery();
-            rs_Mapcatid.next();
-            int Map_category_id = rs_Mapcatid.getInt(1);
 
 
 

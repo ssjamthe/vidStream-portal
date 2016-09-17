@@ -235,7 +235,7 @@ public class ListAllVideoAction extends ActionSupport implements SessionAware {
 
             } else {
 
-                if (nested_list.contains(category_name)) {
+                if (nested_list.contains(category_id)) {
                     //  System.out.println("Available::::::::::---" + category_name);
                     Iterator<String> itr = nested_list.iterator();
                     /*    for (Iterator<String> iter = nested_list.listIterator(); iter.hasNext();) {

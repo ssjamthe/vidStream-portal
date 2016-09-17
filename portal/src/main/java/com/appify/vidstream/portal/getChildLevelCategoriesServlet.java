@@ -55,12 +55,13 @@ public class getChildLevelCategoriesServlet extends HttpServlet {
             System.out.println("top_level_parent_category::::" + top_level_parent_category);
             con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
-            String query_parent_catid = "select id from category where name='" + top_level_parent_category + "'";
+           /* String query_parent_catid = "select id from category where name='" + top_level_parent_category + "'";
             PreparedStatement pst_parent_catid = con.prepareStatement(query_parent_catid);
             ResultSet rs_parent_ctegoryid = pst_parent_catid.executeQuery();
             System.out.println("query_parent_catid::::" + query_parent_catid);
             rs_parent_ctegoryid.next();
-            top_level_parent_category_id = rs_parent_ctegoryid.getInt(1);
+            top_level_parent_category_id = rs_parent_ctegoryid.getInt(1);*/
+            top_level_parent_category_id = Integer.parseInt(top_level_parent_category);
 
 
             Sql_get_child_category_id = "select distinct child_category_id  from parent_child_category_mappings where parent_category_id='" + top_level_parent_category_id + "'";
