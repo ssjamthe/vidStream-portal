@@ -752,7 +752,7 @@
                 });
             }
             $(function() {
-                alert('jiii');
+               
                 add_data();
             });
             function add_data() {
@@ -775,7 +775,7 @@
                     if (t) {
 
                         var allFoundCharacters = str.match(specialChars);
-                        alert(allFoundCharacters);
+                  
                         r = n.repeat(allFoundCharacters.length);
                         r_plus = plus.repeat(allFoundCharacters.length);
                     }

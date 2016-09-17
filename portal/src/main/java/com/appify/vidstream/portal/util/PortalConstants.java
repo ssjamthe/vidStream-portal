@@ -16,7 +16,5 @@ public final class PortalConstants {
     public static String getYOUTUBE_API_KEY() {
         return YOUTUBE_API_KEY;
     }
-        
-        
 
 }
