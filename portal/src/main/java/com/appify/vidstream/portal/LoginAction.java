@@ -4,6 +4,7 @@
  */
 package com.appify.vidstream.portal;
 
+import com.appify.vidstream.portal.util.PortalConstants;
 import com.opensymphony.xwork2.ActionSupport;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,7 +71,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
             if (username == null) {
                 HttpSession session = ServletActionContext.getRequest().getSession();
                 password = (String) session.getAttribute("uPass");
-                username = (String) session.getAttribute("uName");
+                username = (String) session.getAttribute(PortalConstants.SESSION_ATTR_USER_NAME);
             }
            con = com.appify.vidstream.portal.util.DataConnection.getConnection();
 
@@ -86,11 +87,11 @@ public class LoginAction extends ActionSupport implements SessionAware {
             Rs_Role_Name.next();
             User_Role_Name = Rs_Role_Name.getString(1);
 
-            sessionMap.put("user_role_name", User_Role_Name);
+            sessionMap.put(PortalConstants.SESSION_ATTR_ROLE_NAME, User_Role_Name);
 
 
             sql_login = "select password FROM portal_user where user_name=?";
-            sessionMap.put("uName", username);
+            sessionMap.put(PortalConstants.SESSION_ATTR_USER_NAME, username);
 
             sessionMap.put("uPass", password);
 

@@ -11,6 +11,14 @@ package com.appify.vidstream.portal.util;
 public final class PortalConstants {
 
 	public static final String PROPERTIES_URL = "/appify/conf/vidStreamPortal/conf.properties";
+
+	public static final String SESSION_ATTR_USER_NAME = "uName";
+
+    public static final String SESSION_ATTR_ROLE_NAME = "user_role_name";
+
+    public static final String ADMIN_ROLE_NAME = "Admin";
+
+
 	// public static final String
 	// YOUTUBE_API_KEY="AIzaSyAEBs_3Va1D1edITLw8hND9IJAcnh50Lx4";
 	//TODO : Need to move this id to conf file
