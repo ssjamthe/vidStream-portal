@@ -730,12 +730,13 @@
                         <tr>
 
                             <td>
-                                <a class = "btn btn-info" href = "homepageaction" role = "button">Create New App
+                                <a class = "btn btn-info"  href = "homepageaction" role = "button">Create New App
                                     <span class="glyphicon glyphicon-plus-sign"></span></a>
                             </td>
                             &nbsp;  &nbsp;  &nbsp;
+                            <!-- Disabling explore youtube option as it hits many queries to DB. Enable this after fixing the problem. -->
                             <td>
-                                <a class = "btn btn-info" href = "exploreutubeaction" role = "button">Explore Youtube
+                                <a class = "btn btn-info" onclick="return false;" href = "exploreutubeaction" role = "button">Explore Youtube
                                     <span class="glyphicon glyphicon-facetime-video"> </span></a>
 
                             </td>
